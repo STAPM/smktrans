@@ -1,17 +1,42 @@
 Package: smktrans
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Smoking Initiation and Quit Probabilities from Cross-sectional Survey Data
+Version: 1.0.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    c(
+    person(given = "Duncan",
+           family = "Gillespie",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: AGPL-3
+           email = "duncan.gillespie@sheffield.ac.uk",
+           comment = c(ORCID = "0000-0003-3450-5747")),
+    person(given = "Laura",
+           family = "Webster",
+           role = c("aut")),
+    person(given = "Alan",
+           family = "Brennan",
+           role = c("aut"),
+           email = "a.brennan@sheffield.ac.uk")
+    )
+Description: Estimates the probabilities that individuals will initiate or quit regular cigarette smoking from cross-sectional survey data. The survey data should contain information on the ages of initiation and quit that can be used to inform the smoking life-history of each individual. Estimates are stratified by age, sex, cohort/period, and socioeconomic conditions (Index of Multiple Deprivation quintiles). Adjustments are applied in an attempt to correct for recall bias, relapse rates and differential mortality by smoking status.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Imports: 
-    data.table
+    nnet,
+    mgcv,
+    testthat,
+    MASS,
+    boot,
+    VGAM,
+    raster,
+    data.table,
+    survey,
+    tobalcepi,
+    stapmr
+Suggests: 
+    knitr,
+    rmarkdown,
+    ggplot2
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)

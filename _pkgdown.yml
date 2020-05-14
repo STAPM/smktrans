@@ -1,0 +1,15 @@
+destination: public
+home:
+  title: Smoking Initiation and Quit Probabilities from Cross-sectional Survey Data
+  links:
+  - text: STAPM webpage
+    href: https://stapm.gitlab.io/
+url: https://stapm.gitlab.io/smktrans
+template:
+  params:
+    bootswatch: flatly
+authors:
+  Duncan Gillespie:
+    href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d
+  Alan Brennan:
+    href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a
