@@ -16,7 +16,7 @@ Authors@R:
            role = c("aut"),
            email = "a.brennan@sheffield.ac.uk")
     )
-Description: Estimates the probabilities that individuals will initiate or quit regular cigarette smoking from cross-sectional survey data. The survey data should contain information on the ages of initiation and quit that can be used to inform the smoking life-history of each individual. Estimates are stratified by age, sex, cohort/period, and socioeconomic conditions (Index of Multiple Deprivation quintiles). Adjustments are applied in an attempt to correct for recall bias, relapse rates and differential mortality by smoking status.
+Description: Estimates the probabilities that individuals will initiate or quit regular cigarette smoking from cross-sectional survey data.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
