@@ -1,8 +1,12 @@
+^data-raw$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
 ^docs$
+^public$
 ^pkgdown$
-^\.gitlab-ci\.yml$
 ^LICENSE\.md$
-^data-raw$
+^\.github
+^\.gitlab-ci\.yml$
+^examples$
+README.Rmd
