@@ -1,4 +1,5 @@
 Package: smktrans
+Type: Package
 Title: Smoking Initiation and Quit Probabilities from Cross-sectional Survey Data
 Version: 1.0.0
 Authors@R: 

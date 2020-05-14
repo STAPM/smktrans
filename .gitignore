@@ -5,3 +5,4 @@ inst/doc
 Archive/
 *.Rproj*
 dev/
+public/*.DS_Store
