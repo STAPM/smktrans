@@ -67,7 +67,7 @@ p_dense <- function(
       #sx <- "Male"
       #md <- "5_most_deprived"
       
-      data_temp <- smoketrans::p_smooth(
+      data_temp <- smktrans::p_smooth(
         smk_init_data[sex == sx & imd_quintile == md], "p_start", 5)
       
       data_temp[ , `:=`(sex = sx, imd_quintile = md)]
