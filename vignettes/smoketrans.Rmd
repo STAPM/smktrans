@@ -200,7 +200,7 @@ quit_data <- quit_est(
   trend_dataq = trend_data,
   survivorship_dataq = survivorship_data,
   mortality_dataq = mortality_data$data_for_quit_ests,
-  relapse_dataq = quitcalc_relapse_data,
+  relapse_dataq = relapse_data$relapse_by_age_imd,
   initiation_dataq = smk_init_data,
   lowest_yearq = 2001,
   highest_yearq = 2016,
