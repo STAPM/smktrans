@@ -70,11 +70,13 @@ quit_forecast <- function(
   for(sex_i in c("Male", "Female")) {
 
     #sex_i <- "Male"
+    #cat(sex_i, "\n")
 
     for(imd_quintile_i in c("1_least_deprived", "2", "3", "4", "5_most_deprived")) {
 
-      #imd_quintile_i <- "5_most_deprived"
-
+      #imd_quintile_i <- "2"
+      #cat(imd_quintile_i, "\n")
+      
       # Select the data for one subgroup
 
       subdata <- copy(data[sex == sex_i & imd_quintile == imd_quintile_i])
@@ -104,7 +106,10 @@ quit_forecast <- function(
 
       # Fill any remaining missing values
 
+      # and remove 0s and 1s from the data because they don't play well with the logit link
+      
       qdat[is.na(qdat)] <- 0
+      qdat[qdat == 1] <- 0
 
       fill.zero <- function(x, method = "constant") {
         tt <- 1:length(x)
