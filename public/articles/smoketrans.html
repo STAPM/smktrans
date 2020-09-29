@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">smktrans</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -202,7 +202,7 @@
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Estimate the shape of the cohort survivorship functions</span>
 <span class="no">survivorship_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">smktrans</span><span class="kw ns">::</span><span class="fu"><a href="../reference/prep_surv.html">prep_surv</a></span>(
   <span class="kw">mx_data_hmd</span> <span class="kw">=</span> <span class="kw pkg">smktrans</span><span class="kw ns">::</span><span class="no"><a href="../reference/hmd_data.html">hmd_data</a></span>,
-  <span class="kw">mx_data_ons</span> <span class="kw">=</span> <span class="kw pkg">smktrans</span><span class="kw ns">::</span><span class="no"><a href="../reference/tob_mort_data.html">tob_mort_data</a></span>
+  <span class="kw">mx_data_ons</span> <span class="kw">=</span> <span class="kw pkg">smktrans</span><span class="kw ns">::</span><span class="no">tob_mort_data</span>
 )</pre></body></html></div>
 </div>
 <div id="survival-by-smoking-status" class="section level2">
@@ -217,7 +217,7 @@
 <span class="no">mortality_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">smktrans</span><span class="kw ns">::</span><span class="fu"><a href="../reference/smoke_surv.html">smoke_surv</a></span>(
   <span class="kw">data</span> <span class="kw">=</span> <span class="no">hse_data</span>,
   <span class="kw">diseases</span>  <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw pkg">tobalcepi</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/tobalcepi/man/tobacco_relative_risks.html">tobacco_relative_risks</a></span>$<span class="no">condition</span>),
-  <span class="kw">mx_data</span> <span class="kw">=</span> <span class="kw pkg">stapmr</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/stapmr/man/tob_mort_data_cause.html">tob_mort_data_cause</a></span>
+  <span class="kw">mx_data</span> <span class="kw">=</span> <span class="kw pkg">stapmr</span><span class="kw ns">::</span><span class="no">tob_mort_data_cause</span>
 )</pre></body></html></div>
 </div>
 <div id="quit-probability-calculation" class="section level2">

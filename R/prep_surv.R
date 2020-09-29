@@ -8,13 +8,12 @@
 #' @param mx_data_hmd Data table containing mortality rates from 1922
 #' from the Human Mortality Database.
 #' @param mx_data_ons Data table containing socioeconomically stratified
-#' mortality rates (2001-2016) - that we process ourselves
+#' mortality rates - that we process ourselves
 #' from mortality microdata supplied by the Office for National Statistics.
 #' @importFrom data.table copy := setDT shift
 #' @return Returns a data table containing the socioeconomically stratified cohort survivorship functions.
 #' Note that these data will only be stratified by IMD quintile for
-#' year ages and years covered by our ONS data
-#' (ages 12-89 and years 2001-2016).
+#' year ages and years covered by our ONS data.
 #' @export
 #'
 #' @examples
@@ -115,7 +114,7 @@ prep_surv <- function(
 
   # Tidy
   domain[ , year := cohort + age]
-  domain <- domain[age %in% 11:89 & year %in% 2001:2016]
+  domain <- domain[age %in% 11:89 & year %in% 2001:2018]
   keep_vars <- c("age", "year", "cohort", "sex", "imd_quintile", "lx")
   domain <- domain[ , keep_vars, with = F]
 

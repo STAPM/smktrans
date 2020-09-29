@@ -24,7 +24,7 @@
 #' been filtered to only include cohorts for which it is possible
 #' to make an adjustment.
 #' 
-#' #' @references
+#' @references
 #' \insertRef{holford2014patterns}{smktrans}
 #' 
 #' 
@@ -65,7 +65,7 @@ init_adj <- function(
   ref_age = 30,
   cohorts = 1971:2020,
   period_start = 2001,
-  period_end = 2016
+  period_end = 2018
 ) {
 
   # Select cohorts to be adjusted
@@ -73,7 +73,7 @@ init_adj <- function(
 
   # Set ref ages
   # considering that some cohorts will need younger or older ref ages
-  # due to the limits of our period data that runs from 2001 to 2016
+  # due to the limits of our period data
   init_data[cohort <= (period_end - ref_age), ref_ages := ref_age]
   init_data[cohort > (period_end - ref_age), ref_ages := period_end - cohort]
   init_data[cohort < (period_start - ref_age), ref_ages := period_start - cohort]
@@ -91,7 +91,8 @@ init_adj <- function(
   evr_smk_ref[ , year := NULL]
 
   # Merge this data subset with the corresponding estimates of ever-smoking
-  ref_data <- merge(ref_data, evr_smk_ref, all.x = T, all.y = F, by = c("cohort", "sex", "imd_quintile"))
+  ref_data <- merge(ref_data, evr_smk_ref, all.x = T, all.y = F, 
+                    by = c("cohort", "sex", "imd_quintile"))
 
   # Calculate the factor by which to scale the cumulative curve of ever-smoking
   ref_data[ , adjustment_factor := fitted_trends / p_ever_smoker]
@@ -100,7 +101,8 @@ init_adj <- function(
   ref_data <- ref_data[ , c("cohort", "sex", "imd_quintile", "adjustment_factor")]
 
   # Merge the adjustment factors back into the cohort data
-  init_data <- merge(init_data, ref_data, all.x = T, all.y = F, by = c("cohort", "sex", "imd_quintile"))
+  init_data <- merge(init_data, ref_data, all.x = T, all.y = F, 
+                     by = c("cohort", "sex", "imd_quintile"))
 
   # Adjust the cumulative probabilities of ever-smoking
   init_data[ , p_ever_smoker_adj := p_ever_smoker * adjustment_factor]
@@ -115,14 +117,17 @@ init_adj <- function(
   ))
   setDT(domain)
   
-  domain <- merge(domain, init_data[ , c("cohort", "sex", "imd_quintile", "age", "ref_ages", "p_ever_smoker_adj")], 
+  domain <- merge(domain, init_data[ , c("cohort", "sex", "imd_quintile", 
+                                         "age", "ref_ages", "p_ever_smoker_adj")], 
                   by = c("cohort", "sex", "imd_quintile", "age"), all.x = T)
   
   # Fill NAs in ref ages
-  domain[ , ref_ages := unique(ref_ages[!is.na(ref_ages)]),  by = c("cohort", "sex", "imd_quintile")]
+  domain[ , ref_ages := unique(ref_ages[!is.na(ref_ages)]),  
+          by = c("cohort", "sex", "imd_quintile")]
   
   # Create a column containing the initiation probability at the reference age 
-  domain[ , last_val := p_ever_smoker_adj[age == ref_ages], by = c("cohort", "sex", "imd_quintile")]
+  domain[ , last_val := p_ever_smoker_adj[age == ref_ages], 
+          by = c("cohort", "sex", "imd_quintile")]
   
   # Use this value to fill missing initiation probs at ages after the ref age
   domain[age > ref_ages, p_ever_smoker_adj := last_val]
@@ -143,7 +148,8 @@ init_adj <- function(
     ))
     setDT(domain_ex)
     
-    domain_ex <- merge(domain_ex, domain, by = c("cohort", "sex", "imd_quintile", "age"), all.x = T)
+    domain_ex <- merge(domain_ex, domain, 
+                       by = c("cohort", "sex", "imd_quintile", "age"), all.x = T)
     
     # Give the cohorts to be extrapolated the average values for the last 5 cohorts
     
@@ -174,7 +180,8 @@ init_adj <- function(
     evr_smk_ref[ , year := NULL]
     
     # Merge this data subset with the corresponding estimates of ever-smoking
-    ref_data <- merge(ref_data, evr_smk_ref, all.x = T, all.y = F, by = c("cohort", "sex", "imd_quintile"))
+    ref_data <- merge(ref_data, evr_smk_ref, all.x = T, all.y = F, 
+                      by = c("cohort", "sex", "imd_quintile"))
     
     # Calculate the factor by which to scale the cumulative curve of ever-smoking
     ref_data[ , adjustment_factor := fitted_trends / p_ever_smoker_adj]
@@ -183,7 +190,8 @@ init_adj <- function(
     ref_data <- ref_data[ , c("cohort", "sex", "imd_quintile", "adjustment_factor")]
     
     # Merge the adjustment factors back into the cohort data
-    domain_ex <- merge(domain_ex, ref_data, all.x = T, all.y = F, by = c("cohort", "sex", "imd_quintile"))
+    domain_ex <- merge(domain_ex, ref_data, all.x = T, all.y = F, 
+                       by = c("cohort", "sex", "imd_quintile"))
     
     # Adjust the cumulative probabilities of ever-smoking
     domain_ex[cohort > maxc, p_ever_smoker_adj := p_ever_smoker_adj * adjustment_factor]

@@ -12,7 +12,7 @@ quit_est(
   relapse_dataq,
   initiation_dataq,
   lowest_yearq = 2001,
-  highest_yearq = 2016,
+  highest_yearq = 2018,
   youngest_yearq = 11
 )
 }

@@ -7,7 +7,7 @@
 smoke_surv(
   data,
   diseases = unique(tobalcepi::tobacco_relative_risks$condition),
-  mx_data = stapmr::tob_mort_data_cause
+  mx_data
 )
 }
 \arguments{
@@ -40,7 +40,7 @@ of how risk declines by the time since some has quit.
 test_data <- smoke_surv(
   data = hse_data,
   diseases  = unique(tobalcepi::tobacco_relative_risks$condition),
-  mx_data = stapmr::tob_mort_data_cause
+  mx_data
 )
 
 }

@@ -1,9 +1,9 @@
 
 # Process the period central death rates
-# that will later be processed into a lifetable from which I calculate the survivorship function
+# that will later be processed into a lifetable from which to calculate the survivorship function
 
-# downloaded from the human mortality database
-# note that these are for England & Wales - civilian pop, but our focus is England - just roll with it for now
+# downloaded from the human mortality database https://www.mortality.org/
+# note that these are for England & Wales - civilian pop, but our focus is England - just roll with it
 
 # these are 1 year central death rates
 

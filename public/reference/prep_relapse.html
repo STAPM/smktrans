@@ -73,7 +73,7 @@ to arrive at the expected values for relapse probabilities within defined subgro
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">smktrans</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@ to arrive at the expected values for relapse probabilities within defined subgro
   <span class='no'>data</span>,
   <span class='kw'>hawkins_relapse</span> <span class='kw'>=</span> <span class='kw pkg'>smktrans</span><span class='kw ns'>::</span><span class='no'><a href='hawkins_relapse.html'>hawkins_relapse</a></span>,
   <span class='kw'>lowest_year</span> <span class='kw'>=</span> <span class='fl'>2001</span>,
-  <span class='kw'>highest_year</span> <span class='kw'>=</span> <span class='fl'>2016</span>,
+  <span class='kw'>highest_year</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
   <span class='kw'>youngest_age</span> <span class='kw'>=</span> <span class='fl'>11</span>
 )</pre>
 
@@ -148,7 +148,8 @@ to arrive at the expected values for relapse probabilities within defined subgro
       <th>hawkins_relapse</th>
       <td><p>Data table containing a tidied version of the estimates of
 long-term smoking relapse probability
- from Hawkins 2010.</p></td>
+ from Hawkins et al. (2010)
+.</p></td>
     </tr>
     <tr>
       <th>lowest_year</th>
@@ -157,13 +158,12 @@ and for Scotland this is 2008). Default is set to 2001, for HSE.</p></td>
     </tr>
     <tr>
       <th>highest_year</th>
-      <td><p>integer - highest year of data available (for England this is 2016
-and for Scotland this is 2018). Default is set to 2016, for HSE.</p></td>
+      <td><p>integer - highest year of data available.</p></td>
     </tr>
     <tr>
       <th>youngest_age</th>
-      <td><p>integer - youngest age in data (for England this is 12, but for
-Scotland this is 16). Default set to 12.</p></td>
+      <td><p>integer - youngest age in data (for England we use 11, but for
+Scotland this is 16).</p></td>
     </tr>
     </table>
 
@@ -176,18 +176,22 @@ age, IMD quintile and time since quit
  quintile (for use in transition prob estimation).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function takes the estimates of relapse to smoking from Hawkins 2010 (
-Hawkins J, Hollingworth W, Campbell R. Long-term smoking relapse: a study
-using the british household panel survey.
-Nicotine &amp; Tobacco Research. 2010 Oct 29;12(12):1228-35.)
+    <p>This function takes the estimates of relapse to smoking from 
+Hawkins et al. (2010)
+
 and to process them into probabilities of relapse to smoking by the significant
 variables from the above paper (age, time since quit, degree or not, mental health condition or not,
 married or not). Note that physical health / gp visits was also significant but not included here
 partly because the Health Survey for England doesn't have the right variables in all years
-and partly because I worry it might not be right to include this when we are looking at
+and partly because it might not be right to include this when we are looking at
 health as an outcome in the model.
 Once we have mapped relapse prob onto the hse by the above variables,
  we can then calculate the variation in expected probability of relapse by imd quintile.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Hawkins J, Hollingworth W, Campbell R (2010).
+&#8220;Long-term smoking relapse: a study using the british household panel survey.&#8221;
+<em>Nicotine \&amp; tobacco research</em>, <b>12</b>(12), 1228--1235.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

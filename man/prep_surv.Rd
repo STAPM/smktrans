@@ -14,14 +14,13 @@ prep_surv(
 from the Human Mortality Database.}
 
 \item{mx_data_ons}{Data table containing socioeconomically stratified
-mortality rates (2001-2016) - that we process ourselves
+mortality rates - that we process ourselves
 from mortality microdata supplied by the Office for National Statistics.}
 }
 \value{
 Returns a data table containing the socioeconomically stratified cohort survivorship functions.
 Note that these data will only be stratified by IMD quintile for
-year ages and years covered by our ONS data
-(ages 12-89 and years 2001-2016).
+year ages and years covered by our ONS data.
 }
 \description{
 Takes mortality rates from birth since 1922 and combines

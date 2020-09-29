@@ -10,7 +10,7 @@ init_adj(
   ref_age = 30,
   cohorts = 1971:2020,
   period_start = 2001,
-  period_end = 2016
+  period_end = 2018
 )
 }
 \arguments{
@@ -39,7 +39,7 @@ Takes the probabilities of ever-smoking estimated from respondent recall and adj
 according to the reported proportions of ever-smokers at a reference age.
 }
 \details{
-This is based on the method applied by Holford et al. 2014.
+This is based on the method applied by \insertCite{holford2014patterns;textual}{smktrans}.
 }
 \examples{
 
@@ -70,4 +70,7 @@ init_data_adj <- init_adj(
 
 }
 
+}
+\references{
+\insertRef{holford2014patterns}{smktrans}
 }

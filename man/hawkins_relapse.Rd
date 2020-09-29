@@ -8,7 +8,7 @@
 A data table.
 }
 \source{
-\href{https://academic.oup.com/ntr/article/12/12/1228/1021710}{James Hawkins, William Hollingworth, Rona Campbell, Long-Term Smoking Relapse: A Study Using the British Household Panel Survey, Nicotine & Tobacco Research, Volume 12, Issue 12, December 2010, Pages 1228–1235, https://doi.org/10.1093/ntr/ntq175}
+\insertRef{hawkins2010long}{smktrans}
 }
 \usage{
 hawkins_relapse

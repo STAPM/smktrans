@@ -73,7 +73,7 @@ probabilities according to the formula given." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">smktrans</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@ probabilities according to the formula given.</p>
   <span class='no'>relapse_dataq</span>,
   <span class='no'>initiation_dataq</span>,
   <span class='kw'>lowest_yearq</span> <span class='kw'>=</span> <span class='fl'>2001</span>,
-  <span class='kw'>highest_yearq</span> <span class='kw'>=</span> <span class='fl'>2016</span>,
+  <span class='kw'>highest_yearq</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
   <span class='kw'>youngest_yearq</span> <span class='kw'>=</span> <span class='fl'>11</span>
 )</pre>
 
@@ -247,14 +247,14 @@ This is 11 for England, and 16 for Scotland. Default is 11.</p></td>
 <span class='co'># Estimate cohort survivorship stratified by age, sex and IMD quintile</span>
 <span class='no'>survivorship_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>smktrans</span><span class='kw ns'>::</span><span class='fu'><a href='prep_surv.html'>prep_surv</a></span>(
   <span class='kw'>mx_data_hmd</span> <span class='kw'>=</span> <span class='kw pkg'>smktrans</span><span class='kw ns'>::</span><span class='no'><a href='hmd_data.html'>hmd_data</a></span>,
-  <span class='kw'>mx_data_ons</span> <span class='kw'>=</span> <span class='kw pkg'>smktrans</span><span class='kw ns'>::</span><span class='no'><a href='tob_mort_data.html'>tob_mort_data</a></span>
+  <span class='kw'>mx_data_ons</span> <span class='kw'>=</span> <span class='kw pkg'>smktrans</span><span class='kw ns'>::</span><span class='no'>tob_mort_data</span>
 )
 
 <span class='co'># Estimate age-specific probabilities of death by smoking status</span>
 <span class='no'>mortality_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>smktrans</span><span class='kw ns'>::</span><span class='fu'><a href='smoke_surv.html'>smoke_surv</a></span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>hse_data</span>,
   <span class='kw'>diseases</span>  <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw pkg'>tobalcepi</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/tobalcepi/man/tobacco_relative_risks.html'>tobacco_relative_risks</a></span>$<span class='no'>condition</span>),
-  <span class='kw'>mx_data</span> <span class='kw'>=</span> <span class='kw pkg'>stapmr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stapmr/man/tob_mort_data_cause.html'>tob_mort_data_cause</a></span>
+  <span class='kw'>mx_data</span> <span class='kw'>=</span> <span class='kw pkg'>stapmr</span><span class='kw ns'>::</span><span class='no'>tob_mort_data_cause</span>
 )
 
 <span class='co'># Prepare probabilities of long-term relapse</span>

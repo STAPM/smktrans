@@ -8,7 +8,7 @@ prep_relapse(
   data,
   hawkins_relapse = smktrans::hawkins_relapse,
   lowest_year = 2001,
-  highest_year = 2016,
+  highest_year = 2018,
   youngest_age = 11
 )
 }
@@ -17,16 +17,15 @@ prep_relapse(
 
 \item{hawkins_relapse}{Data table containing a tidied version of the estimates of
 long-term smoking relapse probability
- from Hawkins 2010.}
+ from \insertCite{hawkins2010long;textual}{smktrans}.}
 
 \item{lowest_year}{integer - lowest year of data available (for England this is 2001
 and for Scotland this is 2008). Default is set to 2001, for HSE.}
 
-\item{highest_year}{integer - highest year of data available (for England this is 2016
-and for Scotland this is 2018). Default is set to 2016, for HSE.}
+\item{highest_year}{integer - highest year of data available.}
 
-\item{youngest_age}{integer - youngest age in data (for England this is 12, but for
-Scotland this is 16). Default set to 12.}
+\item{youngest_age}{integer - youngest age in data (for England we use 11, but for
+Scotland this is 16).}
 }
 \value{
 Returns two data tables: First, with relapse probabilities stratified by year,
@@ -40,15 +39,13 @@ Combines published estimates of long-term relapse with the Health Survey for Eng
 to arrive at the expected values for relapse probabilities within defined subgroups.
 }
 \details{
-This function takes the estimates of relapse to smoking from Hawkins 2010 (
-Hawkins J, Hollingworth W, Campbell R. Long-term smoking relapse: a study
-using the british household panel survey.
-Nicotine & Tobacco Research. 2010 Oct 29;12(12):1228-35.)
+This function takes the estimates of relapse to smoking from 
+\insertCite{hawkins2010long;textual}{smktrans}
 and to process them into probabilities of relapse to smoking by the significant
 variables from the above paper (age, time since quit, degree or not, mental health condition or not,
 married or not). Note that physical health / gp visits was also significant but not included here
 partly because the Health Survey for England doesn't have the right variables in all years
-and partly because I worry it might not be right to include this when we are looking at
+and partly because it might not be right to include this when we are looking at
 health as an outcome in the model.
 Once we have mapped relapse prob onto the hse by the above variables,
  we can then calculate the variation in expected probability of relapse by imd quintile.
@@ -60,4 +57,7 @@ test_data <- prep_relapse(
   hawkins_relapse = smktrans::hawkins_relapse
 )
 }
+}
+\references{
+\insertRef{hawkins2010long}{smktrans}
 }

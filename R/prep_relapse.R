@@ -4,15 +4,13 @@
 #' Combines published estimates of long-term relapse with the Health Survey for England data
 #' to arrive at the expected values for relapse probabilities within defined subgroups.
 #'
-#' This function takes the estimates of relapse to smoking from Hawkins 2010 (
-#' Hawkins J, Hollingworth W, Campbell R. Long-term smoking relapse: a study
-#' using the british household panel survey.
-#' Nicotine & Tobacco Research. 2010 Oct 29;12(12):1228-35.)
+#' This function takes the estimates of relapse to smoking from 
+#' \insertCite{hawkins2010long;textual}{smktrans}
 #' and to process them into probabilities of relapse to smoking by the significant
 #' variables from the above paper (age, time since quit, degree or not, mental health condition or not,
 #' married or not). Note that physical health / gp visits was also significant but not included here
 #' partly because the Health Survey for England doesn't have the right variables in all years
-#' and partly because I worry it might not be right to include this when we are looking at
+#' and partly because it might not be right to include this when we are looking at
 #' health as an outcome in the model.
 #' Once we have mapped relapse prob onto the hse by the above variables,
 #'  we can then calculate the variation in expected probability of relapse by imd quintile.
@@ -20,19 +18,25 @@
 #' @param data Data table containing individual characteristics from the Health Survey for England.
 #' @param hawkins_relapse Data table containing a tidied version of the estimates of
 #' long-term smoking relapse probability
-#'  from Hawkins 2010.
+#'  from \insertCite{hawkins2010long;textual}{smktrans}.
 #' @param lowest_year integer - lowest year of data available (for England this is 2001
 #' and for Scotland this is 2008). Default is set to 2001, for HSE.
-#' @param highest_year integer - highest year of data available (for England this is 2016
-#' and for Scotland this is 2018). Default is set to 2016, for HSE.
-#' @param youngest_age integer - youngest age in data (for England this is 12, but for
-#' Scotland this is 16). Default set to 12.
+#' @param highest_year integer - highest year of data available.
+#' @param youngest_age integer - youngest age in data (for England we use 11, but for
+#' Scotland this is 16).
+#' 
 #' @importFrom data.table copy := rbindlist setDT
+#' @importFrom Rdpack reprompt
+#' 
 #' @return Returns two data tables: First, with relapse probabilities stratified by year,
 #' age, IMD quintile and time since quit
 #' (for use in the STAPM simulation);
 #'  Second, with relapse probabilities stratified by just year, age and IMD
 #'  quintile (for use in transition prob estimation).
+#'  
+#' @references
+#' \insertRef{hawkins2010long}{smktrans}
+#'  
 #' @export
 #' @examples
 #' \dontrun{
@@ -45,7 +49,7 @@ prep_relapse <- function(
   data,
   hawkins_relapse = smktrans::hawkins_relapse,
   lowest_year = 2001,
-  highest_year = 2016,
+  highest_year = 2018,
   youngest_age = 11
 ) {
 
@@ -201,7 +205,7 @@ prep_relapse <- function(
   # Add future values
   # rather than forecast, keep simple and assume that all future years
   # have the average values from the last 5 years
-  temp <- relapse_by_age_imd_timesincequit[year %in% (2016 - 4):2016]
+  temp <- relapse_by_age_imd_timesincequit[year %in% (2018 - 4):2018]
   temp <- temp[ , list(p_relapse = mean(p_relapse, na.rm = T)),
                 by = c("age", "time_since_quit", "sex", "imd_quintile")]
 

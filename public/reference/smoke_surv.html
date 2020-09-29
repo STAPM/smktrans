@@ -76,7 +76,7 @@ of how risk declines by the time since some has quit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">smktrans</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@ of how risk declines by the time since some has quit.</p>
     <pre class="usage"><span class='fu'>smoke_surv</span>(
   <span class='no'>data</span>,
   <span class='kw'>diseases</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw pkg'>tobalcepi</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/tobalcepi/man/tobacco_relative_risks.html'>tobacco_relative_risks</a></span>$<span class='no'>condition</span>),
-  <span class='kw'>mx_data</span> <span class='kw'>=</span> <span class='kw pkg'>stapmr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stapmr/man/tob_mort_data_cause.html'>tob_mort_data_cause</a></span>
+  <span class='no'>mx_data</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -175,7 +175,7 @@ other has been tidied into the form needed for quit probability estimation.</p>
 <span class='no'>test_data</span> <span class='kw'>&lt;-</span> <span class='fu'>smoke_surv</span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>hse_data</span>,
   <span class='kw'>diseases</span>  <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw pkg'>tobalcepi</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/tobalcepi/man/tobacco_relative_risks.html'>tobacco_relative_risks</a></span>$<span class='no'>condition</span>),
-  <span class='kw'>mx_data</span> <span class='kw'>=</span> <span class='kw pkg'>stapmr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/stapmr/man/tob_mort_data_cause.html'>tob_mort_data_cause</a></span>
+  <span class='no'>mx_data</span>
 )
 
 }</div></pre>

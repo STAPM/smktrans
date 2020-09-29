@@ -51,7 +51,7 @@ smoke_surv <- function(
   ###################################################
   # Calculate probabilities of death
 
-  for(k_year in 2001:2016) {
+  for(k_year in 2001:2018) {
 
     temp <- stapmr::SurvFunc(
       data = data[year == k_year],
@@ -76,7 +76,7 @@ smoke_surv <- function(
 
   domain <- data.frame(expand.grid(
     age = 11:89,
-    year = 2001:2016,
+    year = 2001:2018,
     sex = c("Male", "Female"),
     imd_quintile = unique(death_data$imd_quintile),
     smk.state = c("current", "former", "never")

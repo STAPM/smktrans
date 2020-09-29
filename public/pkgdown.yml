@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   clean_hse_data: clean_hse_data.html
   smoketrans: smoketrans.html
-last_built: 2020-05-16T12:24Z
+last_built: 2020-09-29T15:13Z
 urls:
   reference: https://stapm.gitlab.io/smktrans/reference
   article: https://stapm.gitlab.io/smktrans/articles

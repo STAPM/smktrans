@@ -119,7 +119,7 @@ quit_est <- function(
   relapse_dataq,
   initiation_dataq,
   lowest_yearq = 2001,
-  highest_yearq = 2016,
+  highest_yearq = 2018,
   youngest_yearq = 11
 ) {
 
@@ -216,8 +216,8 @@ quit_est <- function(
   master_data[quit_prob < 0 | is.na(quit_prob), quit_prob := 0]
   master_data[quit_prob > 1 | is.na(quit_prob), quit_prob := 1]
 
-  # no estimated quit probs for 2016
-  master_data <- master_data[year <= 2015]
+  # no estimated quit probs for 2018
+  master_data <- master_data[year <= 2017]
 
   # Keep only required variables
   master_data <- master_data[age < 89, c("sex", "age", "year", "imd_quintile", "quit_prob")]
