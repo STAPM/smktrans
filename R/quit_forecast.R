@@ -155,6 +155,7 @@ quit_forecast <- function(
         kval <- newdata$preds[newdata$years == cont_limit]
         newdata <- newdata[newdata$years <= cont_limit, ]
         kt_proj <- c(kt, newdata$preds, rep(kval, time_horizon - cont_limit))
+        #kt_proj <- c(kt, newdata$preds)
 
       }
 

@@ -28,7 +28,7 @@
 #' test_data <- smoke_surv(
 #'   data = hse_data,
 #'   diseases  = unique(tobalcepi::tobacco_relative_risks$condition),
-#'   mx_data = stapmr::tob_mort_data_cause
+#'   mx_data
 #' )
 #'
 #' }
@@ -36,7 +36,7 @@
 smoke_surv <- function(
   data,
   diseases = unique(tobalcepi::tobacco_relative_risks$condition),
-  mx_data = stapmr::tob_mort_data_cause
+  mx_data
 ) {
 
   ###################################################

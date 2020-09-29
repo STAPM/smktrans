@@ -5,7 +5,7 @@
 #' Takes the probabilities of ever-smoking estimated from respondent recall and adjusts them
 #' according to the reported proportions of ever-smokers at a reference age.
 #'
-#' This is based on the method applied by Holford et al. 2014.
+#' This is based on the method applied by \insertCite{holford2014patterns;textual}{smktrans}.
 #'
 #' @param init_data Data table - raw estimates of the probabilities of 
 #' ever-smoking by age, sex and IMD quintile.
@@ -14,12 +14,20 @@
 #' @param cohorts Integer vector - the cohorts to be adjusted
 #' @param period_start Integer - the first year of data
 #' @param period_end Integer - the last year of data
+#' 
 #' @importFrom data.table setDT := copy
+#' @importFrom Rdpack reprompt
+#' 
 #' @return Returns an updated version of init_data with a new 
 #' variable containing the adjusted values for
 #' the probabilities of ever smoking. The data has also 
 #' been filtered to only include cohorts for which it is possible
 #' to make an adjustment.
+#' 
+#' #' @references
+#' \insertRef{holford2014patterns}{smktrans}
+#' 
+#' 
 #' @export
 #'
 #' @examples

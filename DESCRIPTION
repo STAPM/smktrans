@@ -31,7 +31,9 @@ Imports:
     VGAM,
     raster,
     data.table,
-    survey
+    survey,
+    Rdpack
+RdMacros: Rdpack
 Suggests: 
     knitr,
     rmarkdown
