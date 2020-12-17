@@ -8,6 +8,13 @@
 
 <title>Articles • smktrans</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,6 +47,7 @@
 
 
 <meta property="og:title" content="Articles" />
+<meta property="og:image" content="https://stapm.gitlab.io/r-packages/smktrans/logo.png" />
 
 
 
@@ -78,32 +86,28 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+  <a href="../articles/smktrans.html">Get started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Functions</a>
+</li>
+<li>
+  <a href="../articles/index.html">Technical documentation</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://gitlab.com/stapm/r-packages/smktrans">
+    <span class="fab fa fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="https://stapm.gitlab.io/software.html">
+    <span class="fa fa-code"></span>
      
-    <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/clean_hse_data.html">Prepare Health Survey for England data</a>
-    </li>
-    <li>
-      <a href="../articles/smoketrans.html">Smoking transition probability estimation</a>
-    </li>
-  </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -121,13 +125,22 @@
     </div>
 
     <div class="section ">
-      <h3>All vignettes</h3>
+      <h3>Methodology reports</h3>
+      <p class="section-desc"></p>
+
+      <dl>
+        <dt><a href="smoking_transition_probabilities_modelling_report.pdf">A methodology for estimating annual probabilities of smoking initiation, quitting and relapse from repeat cross-sectional survey data of smoking in England (PDF)</a></dt>
+        <dd></dt>
+      </dl>
+    </div>
+    <div class="section ">
+      <h3>Code vignettes</h3>
       <p class="section-desc"></p>
 
       <dl>
         <dt><a href="clean_hse_data.html">Prepare Health Survey for England data</a></dt>
         <dd></dt>
-        <dt><a href="smoketrans.html">Smoking transition probability estimation</a></dt>
+        <dt><a href="smk_trans_prob_estimation.html">Smoking transition probability estimation</a></dt>
         <dd></dt>
       </dl>
     </div>
@@ -141,7 +154,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

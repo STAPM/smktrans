@@ -1,17 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# smktrans <img src="tools/hex-smktrans.png" align="right" style="padding-left:10px;background-color:white;" width="100" height="100" />
+# Smoking Initiation, Quit and Relapse Probabilities from Cross-sectional Survey Data <img src="logo.png" align="right" style="padding-left:10px;background-color:white;" width="100" height="100" />
+
+<!-- badges: start -->
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-
-**DRAFT WORKING VERSION** - The package is usable but there are still
-bugs and further developments that are being worked through i.e. some
-code and documentation is still incomplete or in need of being refined.
-The code and documentation are still undergoing internal review by the
-analyst team.
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
 
 ## Motivation
 

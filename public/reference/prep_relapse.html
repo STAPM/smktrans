@@ -8,6 +8,13 @@
 
 <title>Prepare long-term relapse probabilities — prep_relapse • smktrans</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="Prepare long-term relapse probabilities — prep_relapse" />
 <meta property="og:description" content="Combines published estimates of long-term relapse with the Health Survey for England data
 to arrive at the expected values for relapse probabilities within defined subgroups." />
+<meta property="og:image" content="https://stapm.gitlab.io/r-packages/smktrans/logo.png" />
 
 
 
@@ -80,32 +88,28 @@ to arrive at the expected values for relapse probabilities within defined subgro
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+  <a href="../articles/smktrans.html">Get started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Functions</a>
+</li>
+<li>
+  <a href="../articles/index.html">Technical documentation</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://gitlab.com/stapm/r-packages/smktrans">
+    <span class="fab fa fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="https://stapm.gitlab.io/software.html">
+    <span class="fa fa-code"></span>
      
-    <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/clean_hse_data.html">Prepare Health Survey for England data</a>
-    </li>
-    <li>
-      <a href="../articles/smoketrans.html">Smoking transition probability estimation</a>
-    </li>
-  </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -129,13 +133,13 @@ to arrive at the expected values for relapse probabilities within defined subgro
 to arrive at the expected values for relapse probabilities within defined subgroups.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prep_relapse</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>hawkins_relapse</span> <span class='kw'>=</span> <span class='kw pkg'>smktrans</span><span class='kw ns'>::</span><span class='no'><a href='hawkins_relapse.html'>hawkins_relapse</a></span>,
-  <span class='kw'>lowest_year</span> <span class='kw'>=</span> <span class='fl'>2001</span>,
-  <span class='kw'>highest_year</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
-  <span class='kw'>youngest_age</span> <span class='kw'>=</span> <span class='fl'>11</span>
-)</pre>
+    <pre class="usage"><span class='fu'>prep_relapse</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  hawkins_relapse <span class='op'>=</span> <span class='fu'>smktrans</span><span class='fu'>::</span><span class='va'><a href='hawkins_relapse.html'>hawkins_relapse</a></span>,
+  lowest_year <span class='op'>=</span> <span class='fl'>2001</span>,
+  highest_year <span class='op'>=</span> <span class='fl'>2018</span>,
+  youngest_age <span class='op'>=</span> <span class='fl'>11</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,12 +198,13 @@ Once we have mapped relapse prob onto the hse by the above variables,
 <em>Nicotine \&amp; tobacco research</em>, <b>12</b>(12), 1228--1235.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>test_data</span> <span class='kw'>&lt;-</span> <span class='fu'>prep_relapse</span>(
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>hse_data</span>,
-  <span class='kw'>hawkins_relapse</span> <span class='kw'>=</span> <span class='kw pkg'>smktrans</span><span class='kw ns'>::</span><span class='no'><a href='hawkins_relapse.html'>hawkins_relapse</a></span>
-)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>test_data</span> <span class='op'>&lt;-</span> <span class='fu'>prep_relapse</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>hse_data</span>,
+  hawkins_relapse <span class='op'>=</span> <span class='fu'>smktrans</span><span class='fu'>::</span><span class='va'><a href='hawkins_relapse.html'>hawkins_relapse</a></span>
+<span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -215,7 +220,7 @@ Once we have mapped relapse prob onto the hse by the above variables,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

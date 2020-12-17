@@ -8,6 +8,13 @@
 
 <title>Cohort specific smoking initiation — init_est • smktrans</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="Calculate the age-specific probabilities and cumulative probabilities of 
 starting to smoke cigarettes regularly
 based on self-reported smoking histories." />
+<meta property="og:image" content="https://stapm.gitlab.io/r-packages/smktrans/logo.png" />
 
 
 
@@ -81,32 +89,28 @@ based on self-reported smoking histories." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+  <a href="../articles/smktrans.html">Get started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Functions</a>
+</li>
+<li>
+  <a href="../articles/index.html">Technical documentation</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://gitlab.com/stapm/r-packages/smktrans">
+    <span class="fab fa fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="https://stapm.gitlab.io/software.html">
+    <span class="fa fa-code"></span>
      
-    <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/clean_hse_data.html">Prepare Health Survey for England data</a>
-    </li>
-    <li>
-      <a href="../articles/smoketrans.html">Smoking transition probability estimation</a>
-    </li>
-  </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -131,7 +135,7 @@ starting to smoke cigarettes regularly
 based on self-reported smoking histories.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>init_est</span>(<span class='no'>data</span>, <span class='kw'>strat_vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span>))</pre>
+    <pre class="usage"><span class='fu'>init_est</span><span class='op'>(</span><span class='va'>data</span>, strat_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,11 +165,13 @@ corresponding to each age for each individual. 1 = initiated smoking, NA = censo
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='no'>test_data</span> <span class='kw'>&lt;-</span> <span class='fu'>init_est</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>hse_data</span>)
+<span class='va'>test_data</span> <span class='op'>&lt;-</span> <span class='fu'>init_est</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>hse_data</span><span class='op'>)</span>
 
-}</div></pre>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -181,7 +187,7 @@ corresponding to each age for each individual. 1 = initiated smoking, NA = censo
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

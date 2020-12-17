@@ -1,10 +1,7 @@
 destination: public
 home:
   title: Smoking Initiation and Quit Probabilities from Cross-sectional Survey Data
-  links:
-  - text: STAPM webpage
-    href: https://stapm.gitlab.io/
-url: https://stapm.gitlab.io/smktrans
+url: https://stapm.gitlab.io/r-packages/smktrans
 template:
   params:
     bootswatch: flatly
@@ -13,3 +10,68 @@ authors:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d
   Alan Brennan:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a
+
+navbar:
+  structure:
+    left:  [home, intro, reference, articles]
+    right: [gitlab, software]
+  components:
+    home: ~
+    intro:
+     text: Get started
+     href: articles/smktrans.html
+    reference:
+     text: Functions
+     href: reference/index.html
+    articles:
+     text: Technical documentation
+     href: articles/index.html
+    gitlab:
+      icon: fab fa-gitlab fa-lg
+      href: https://gitlab.com/stapm/r-packages/smktrans
+    software:
+      icon: fa-code
+      href: https://stapm.gitlab.io/software.html
+
+
+articles:
+- title: Methodology reports
+  contents:
+  - smoking_transition_probabilities_modelling_report
+
+- title: Code vignettes
+  contents:
+  - clean_hse_data
+  - smk_trans_prob_estimation
+
+reference:
+- title: Smoking trends
+  contents:
+  - ever_smoke
+  - trend_fit
+
+- title: Smoking initiation
+  contents:
+  - init_est
+  - init_adj
+
+- title: Quitting smoking
+  contents:
+  - quit_est
+  - quit_forecast
+  - smoke_surv
+  - prep_surv
+  - hmd_data
+
+- title: Relapse to smoking
+  contents:
+  - prep_relapse
+  - hawkins_relapse
+  
+- title: Misc
+  contents:
+  - bin_var
+  - p_dense
+  - p_smooth
+
+

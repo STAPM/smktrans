@@ -1,0 +1,308 @@
+---
+title: "A methodology for estimating annual probabilities of smoking initiation, quitting and relapse from repeat cross-sectional survey data of smoking in England"
+subtitle: Version 1.3.0
+biblio-style: apalike
+date: "`r format(Sys.Date(), format = '%B %Y')`"
+output: 
+  bookdown::pdf_document2:
+    highlight: haddock
+    number_sections: true
+    toc: false
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+  - \usepackage{threeparttablex}
+  - \usepackage[normalem]{ulem}
+  - \usepackage[normalem]{ulem}
+  - \usepackage[utf8]{inputenc}
+  - \usepackage{makecell}
+  - \usepackage{amsmath}
+  - \usepackage{graphicx}
+  - \usepackage{titling}
+  - \pretitle{\begin{center}
+    \includegraphics[width=3in,height=2in]{inst/TUOS_PRIMARY_LOGO_FULL COLOUR.jpg}\LARGE\\\vskip 3em}
+  - \posttitle{\end{center}\vskip 4em}
+  - \usepackage{tcolorbox}
+  - \usepackage{xcolor}
+  - \usepackage{hyperref}
+  - \usepackage{footnote}
+link-citations: yes
+bibliography:
+- refs/smoking_transitions.bib
+- refs/stapm_refs.bib
+- refs/packages.bib
+always_allow_html: yes
+urlcolor: blue
+vignette: >
+  %\VignetteIndexEntry{smk_trans_estimation_report}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+pkgdown:
+  as_is: true
+  extension: pdf
+---
+
+Duncan Gillespie^1^, Laura Webster^1^, Magdalena Opazo Breton^1^, Colin Angus^1^ & Alan Brennan^1^
+
+\vskip 1em
+
+^1^School of Health and Related Research (ScHARR), The University of Sheffield
+
+\vskip 1em
+
+**Address for correspondence**:\
+Dr Duncan Gillespie\
+Section of Health Economics and Decision Science,\
+School for Health and Related Research,\
+The University of Sheffield,\
+Regent Court, Regent Street, Sheffield, S1 4DA, UK\
+Email: [duncan.gillespie\@sheffield.ac.uk](mailto:duncan.gillespie@sheffield.ac.uk){.email}
+
+\vskip 1em
+
+```{=tex}
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=WARNING]
+This is a working draft version that is subject to review and future versions are likely.
+\end{tcolorbox}
+```
+\vskip 1em
+
+The code that accompanies this report can be found in the `smktrans` R package (<https://stapm.gitlab.io/r-packages/smktrans/>), and in the other R packages that underlie the Sheffield Tobacco Policy Model as described on the Sheffield Tobacco and Alcohol Policy Modelling website (<https://stapm.gitlab.io/>). This report is licensed to The University of Sheffield under a [CC by 4.0](https://creativecommons.org/licenses/by/4.0/) license.\
+\newpage
+
+```{r setup, include = FALSE, results = 'hide', warning = FALSE}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.pos = 'H'
+)
+
+options(tinytex.verbose = F)
+
+suppressPackageStartupMessages(library(magrittr))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(data.table))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(readxl))
+suppressPackageStartupMessages(library(tobalcepi))
+suppressPackageStartupMessages(library(stapmr))
+suppressPackageStartupMessages(library(smktrans))
+suppressPackageStartupMessages(library(ggthemes))
+suppressPackageStartupMessages(library(RColorBrewer))
+suppressPackageStartupMessages(library(cowplot))
+suppressPackageStartupMessages(library(plyr))
+
+```
+
+```{r include=FALSE, eval=F}
+# automatically create a bib database for R packages
+# do not re-run!
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+# Summary {-}
+This report presents a methodology to estimate these smoking state transition probabilities from repeat cross-sectional smoking survey data. We developed equations for the annual probabilities of smoking initiation, quit and relapse, based on previous methods to infer smoking state transition probabilities from repeat cross-sectional data, and on the mathematical description of the STPM. We describe the data sources that we use to inform the parameters in these equations for the estimation of smoking state transition probabilities. In particular, our methodology advances previous methods to estimate the probabilities of quitting smoking by including adjustments of the estimated probabilities for long-term smoking relapse and the differential mortality of smokers. We also apply adjustments in an effort to account for biased recall of survey respondents and demographic variation in population structure.    
+
+\newpage
+
+# Glossary of terms {-}
+
+```{r tablegloss, eval = T, warning = F, echo=F, cache = F}
+
+df_table1 <- readxl::read_xlsx('inst/Glossary.xlsx','glossary')
+
+df_table1 %>%
+  kableExtra::kbl(booktabs = T, caption = "Explanation of terms.", label = "tablegloss", linesep = "\\hline", escape = F, longtable = T) %>%
+  kableExtra::column_spec(column = 1, width = "5cm") %>%
+  kableExtra::column_spec(column = 2, width = "11cm") %>%
+  kableExtra::kable_styling(font_size = 8, latex_options = c("HOLD_position")) 
+
+```
+
+# Mathematical notation {-}
+
+```{r table2math, eval = T, warning = F, echo=F, cache = F}
+
+df_table1 <- readxl::read_xlsx('inst/mathematical_notation.xlsx','STPM_desc')
+
+df_table1 %>%
+  kableExtra::kbl(booktabs = T, caption = "Overview of mathematical notation.", label = "table2math", linesep = "\\hline", escape = F, longtable = T) %>%
+  kableExtra::column_spec(column = 1, width = "4cm") %>%
+  kableExtra::column_spec(column = 2, width = "10cm") %>%
+  kableExtra::kable_styling(font_size = 8, latex_options = c("HOLD_position"))
+
+```
+
+\newpage
+
+\hypersetup{linkcolor=blue}
+\tableofcontents
+
+\newpage
+
+# Introduction
+To reliably model the effects of tobacco control policies and interventions on population trends in smoking rates, it is important to reliably estimate the baseline smoking state transition probabilities of smoking initiation, quit and relapse by age, sex and socio-economic conditions, and to investigate how these transition probabilities change over the life-course of individuals and at the population-level over calendar time.   
+
+# Background
+In the 1950s, Doll and Hill published the first evidence that smoking increases mortality [@Doll1954; @Doll1964], and in 1962, the Royal College of Physician's 'Smoking and health' report promoted a range of smoking prevention measures, including preventing tobacco advertising, increasing prices, making public places smoke free, providing treatment for smokers, educating the public and restricting young people's access to cigarettes [@rcpsmoking1962]. In 1998, the UK's Smoking White Paper 'Smoking Kills' introduced the first coordinated set of tobacco control policies [@smokingkills]. These actions, followed by successive national tobacco control strategies, precipitated the decline of the tobacco epidemic. England is now in the final phase of the tobacco epidemic when, although the rate of smoking in adults was 14.4\% in 2018 according to the Annual Population Survey (around 6 million smokers), there is a high frequency of former smokers and the health and mortality effects of smoking are still emerging in cohorts where smoking was once common. The government recently set the ambition for the England to be [smoke-free by 2030](https://www.gov.uk/government/consultations/advancing-our-health-prevention-in-the-2020s/advancing-our-health-prevention-in-the-2020s-consultation-document), meaning that smoking rates in adults should be less than 5\%. Given the short time to achieve this ambition, it will be necessary to at least maintain and probably increase the rate at which people who currently smoke are making attempts to quit, increase the success of quit attempts, and continue the declines in smoking initiation. In addition, smoking is now concentrated among people living in more deprived socio-economic conditions [@Hiscock2012;@nhs2019statistics], which indicates that to understand how England might achieve its smoke-free target, it is important to understand how the population dynamics of smoking have differed among people living in different socio-economic conditions, and how these differences might continue in future.     
+
+## The use of smoking state transitions probabilities in previous computer models of smoking
+Computer models are a useful tool to project what might happen to the population-level rates of smoking in the future. The main components of smoking behaviour are the transitions among never, current and former smoking states, and individuals also transition from these smoking states to death. Alternative future scenarios of smoking behaviour might therefore be defined in terms of different future trends in the smoking state transition probabilities of initiation, quitting and relapse. There are a range of existing computer models that might allow such projections. Feirman et al [-@feirman2015mathematical; -@feirman2017computational], Berg at al [-@berg2017model] and Singh et al [-@singh2020simulating] all carried out reviews of models that have been used to project future trends in smoking behaviour and to estimate the potential effects of new policies and interventions on smoking behaviour, and the associated health and economic outcomes. A large category of these models simulate the progression of smoking initiation, quitting and relapse over the entire life-courses of individuals in one-year time steps, and by simulating successive cohorts of individuals, make projections of the population-level trajectories of smoking rates. Models of this sort use a range of methods and have been developed for several geographic regions (e.g. the United Kingdom [@hunt2018modelling; @song2020impact], the Netherlands with the RIVM-Chronic Disease Model [@hoogenveen2008dynamic], the European [Dynamo-HIA](https://www.dynamo-hia.eu/) (DYNAmic MOdel for Health Impact Assessment) [@boshuizen2012dynamo], the United States [@tengs2001public; @mendez1998has; @levy2016gauging; @tam2018projecting], New Zealand [@van2014projecting] and Australia [@gartner2009predicting]).   
+
+However, a major difficulty in developing these models is how to use population survey data to inform the probabilities that individuals will transition between different smoking states, and the choice of methodology is likely to have a strong influence on the population trajectories of smoking rates that are estimated by the model. One approach, employed by the RIVM-Chronic Disease Model, estimates smoking transition probabilities directly from a population survey that asks people about their current smoking status, about their smoking a year ago and, if they were a former smoker, when they had quit smoking [@capannesi2009obtain]. A second approach, employed by the Dynamo-HIA model, estimates 'net' smoking transition probabilities using just a single year of cross-sectional data, such that when the probabilities are applied, rates of smoking remain constant between years [@van2012estimating]. A third approach, employed by some models of smoking in the United States, estimates time-varying probabilities of smoking initiation and quitting from several years of cross-sectional survey data [@anderson2012chapter;@holford2014patterns; @tam2018projecting]. This third approach has strengths over the other approaches because it can estimate time trends in smoking state transition probabilities and makes use of widely available annual cross-sectional survey data. However, the method as currently published doesn't produce estimates of the probabilities of long-term relapse to smoking (i.e. relapse beyond one-year since quitting), likely due to the limitations of the cross-sectional data used. Despite the importance of information on relapse to smoking over several years since quitting [@stapleton1998much], evidence is scarce [@etter2006nicotine; @hughes2008relapse], and the best opportunity to estimate the probabilities of smoking relapse is offered by survey data that tracks individuals over several years, e.g. the [British Household Panel Survey](https://www.iser.essex.ac.uk/bhps) (BHPS) [@hawkins2010long]. A second limitation of the method is that it doesn't adjust the estimates of smoking quitting to reduce the influence of bias that might result from age-related changes to the proportions of current and former smokers due to the elevated mortality associated with their smoking history [@christopoulou2011dying].    
+
+## Programme of work
+Our development of the Sheffield Tobacco Policy Model (STPM) is part of a wider programme of work that aims to provide decision-support to policymakers in the fields of alcohol and tobacco control, at a range of geographic scales, including national and local authority level. The two main objectives are:   
+
+1. To investigate past trends in alcohol and/or smoking behaviour and related health and economic outcomes, and to investigate past policy effects; 
+2. To investigate the potential future effects on alcohol and/or smoking behaviour and related health and economic outcomes of proposed changes to alcohol and/or tobacco policy or the introduction of new interventions. 
+
+# The aim of this report
+This report was written as part of our explanation of the methodology that underlies the STPM for England, an individual-based population microsimulation model. The intended audience for this report are fellow modellers using, adapting or building on the STPM methods, and users of the findings from STPM, who would like to understand the methods used to obtain the results. We describe the data sources and methods used to estimate smoking state transition probabilities from several years of cross-sectional survey data. 
+
+# Methods
+
+## Approach to smoking state transition probability estimation
+We build on the methodology developed by Anderson et al. [-@anderson2012chapter] and Holford et al. [-@holford2014patterns] for the United States, which estimates age- and period-specific probabilities of smoking initiation and quitting for ages over 15 years using cross-sectional data for years 1965--2009 (see the detailed methods explanation in the appendix to Holford et al. [-@holford2014patterns]). The main way we extend these methods is by adding adjustments to the method for estimating the probabilities of quitting smoking - to account for the influences on the estimates of quit probabilities of smoking initiation, relapse to smoking, and smoking-related mortality. To do so, we use two sources of external data:   
+
+1. On the probabilities of relapse to smoking from Hawkins et al [-@hawkins2010long]; 
+2. On the probabilities of death according to smoking status.   
+
+The outputs of our estimation method are probabilities of smoking initiation, quitting smoking and relapse to smoking by calendar year ($y$), age ($a$), and strata defined by sex and socio-economic conditions ($j$). The method is designed to use a metric of socio-economic conditions that is age invariant (which means that our estimation method is simplified as we do not need to account for dynamic changes to socio-economic conditions over individual life-courses). The literature on the indirect estimation of transition probabilities from cross-sectional data talks about this method of stratification as grouping individuals into a set of 'pseudopanels', which are created from several years of cross-sectional data by grouping individuals according to similar time-invariant characteristics to form relatively homogenous cohorts [@verbeek2005estimating].    
+
+## Approach to coding and reproducible research
+We implement our analysis in the R environment [@Renviron]. To implement our calculations in a reproducible and version controlled way, we developed functions in the `smktrans` R package of code [@R-smktrans] to estimate smoking state transition probabilities. Further explanation of our approach to coding and reproducible research can be found on the Sheffield Tobacco and Alcohol Policy Modelling website (https://stapm.gitlab.io/).    
+
+## Mathematical framework
+The method used to estimate smoking transition probabilities is based on the structural assumptions that underlie our STPM microsimulation model of the population dynamics of smoking. STPM models the movement of individuals among current, former and never smoking states as they age, and between these smoking states and death -- in one-year time steps (see the [STPM methodology report](https://stapm.gitlab.io/r-packages/stapmr/articles/smoking_model_maths_report.pdf)). At each time step, a new cohort of individuals aged $a_{min}$ years are added to the population, and individuals aged $a_{max}$ years are removed from the population. This structure allows us to model the population-level trends in the rates of smoking over time in calendar years $y$ (e.g. from the year $y = 2001$ in one-year time steps) as a function of the dynamics of smoking over individual life-courses, i.e. the population-level trends are produced by the individual-level smoking transitions within successive birth cohorts. We stratify our modelling of the dynamics of smoking by sex and IMD quintile strata (i.e. 10 separate strata that we denote $j$).      
+
+## Population and data {#popdata}
+Our analysis relates to people aged from 11 to 89 years in England, with the lower age limit of 11 chosen because much of smoking initiation occurs when children begin secondary education at age 11 in England. Table \@ref(tab:table1) summarises our data inputs and processes. 
+
+### Data on smoking
+We used the Health Survey for England (HSE) 2001--2018 as our primary data source for developing this methodology [@mindell2012cohort]. The HSE data is processed using functions in the `hseclean` R package [@R-hseclean]. Missing values in these variables are multiply imputed using the R package *mice* [@buuren2010mice]. From 2016 onwards, the version of the HSE available from the UK Data Service only reported respondent age in categories (predominantly 5 year intervals). For these years of data, we convert the categories to single years by randomly assigning individuals an age within each category.   
+
+The HSE data comes in the form of self-reports of whether a survey respondent is a current, former or never smoker, and with recalled information from current and former smokers on when they started and stopped smoking. We define smoking states as follows:  
+
+- A *never smoker* is someone who has never smoked or has only tried a cigarette once or twice in their lifetime.
+- A *current smoker* is someone who smokes cigarettes either regularly or occasionally.
+- A *former smoker* is someone who used to smoke cigarettes either regularly or occasionally. For former smokers we also track the number of years since quitting as discrete states.
+
+For current and former smokers, the HSE contains data on the ages that individuals reported starting and stopping being smokers (providing a simplified and potentially biased view of what might be a complicated life history of smoking, e.g. someone might have smoked to different levels or started and stopped smoking multiple times between these ages).   
+
+We measure socio-economic conditions using quintiles of the English [Index of Multiple Deprivation](https://www.gov.uk/government/collections/english-indices-of-deprivation) (IMD), a composite area-level measure based on 37 indicators reflecting income, employment, health and disability, education and skills, housing, services, accessibility, crime and living/physical environment. The IMD is calculated for small geographic areas in England of approximately 1,500 people. We divided IMD scores into quintiles, the first being the least deprived, and the fifth the most deprived. 
+
+### Smoking relapse
+The HSE does not contain information sufficient to estimate the probabilities of long-term relapse to smoking, e.g. it does not ask current smokers about previous failed quitting attempts. We overcome this by linking previously published estimates from the BHPS [@hawkins2010long] into the HSE data, matching on education (degree or not), employment (employed or not), relationship status (married, cohabiting or neither), mental health (has condition or not) and income.   
+
+### Mortality and associations between smoking and disease
+We consider 52 ICD-10 defined categories of adult diseases related to smoking and the corresponding relative risks of these diseases in current vs. never smokers, and in former smokers according to the time since they quit [@webster2018risk]. We calculated mortality rates from counts of death and population sizes obtained from the UK's Office for National Statistics (ONS), by calendar year (2001--2018), single years of age, and strata defined by sex and IMD quintiles. 
+
+### Population data and cohort survivorship
+Future population sizes are informed by the [ONS's primary population projection for England](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationprojections). We also use information on historical mortality rates (prior to 2001) to inform the cohort survivorship functions, and we obtain these data from the Human Mortality Database [@barbieri2015data].       
+
+
+(ref:table1-ref1) Hawkins *et al.* [-@hawkins2010long]
+(ref:table1-ref2) Human Mortality Database [@barbieri2015data]
+(ref:table1-ref3) risks of smoking for adult disease [@webster2018risk]
+(ref:table1-ref4) Health Survey for England [@mindell2012cohort]
+
+```{r table1, eval = T, warning = F, echo=F, cache = T}
+
+df_table1 <- readxl::read_xlsx('inst/Table1_data_inputs_and_processes.xlsx','Sheet1')
+
+df_table1 %>%
+  kableExtra::kbl(booktabs = T, caption = "Overview of model inputs, processes and outputs.", label = "table1", linesep = "\\hline") %>%
+  kableExtra::column_spec(column = 1:3, width = "5cm") %>%
+  kableExtra::kable_styling(font_size = 8, latex_options = c("HOLD_position"))
+
+```
+
+## Estimating smoking state transition probabilities
+
+### Smoking initiation {#smokeinit}  
+Smoking initiation probabilities are estimated using data on the ages at which individuals reported to have started smoking (data that are likely to be biased for a range of reasons, e.g. biased recall and selective mortality [@kenkel2004accounting;@christopoulou2011dying]). The estimates are the probabilities $P(\text{initiate} | a, c, j)$ that an individual who is a never smoker at age $a$ will subsequently be observed as a current smoker at age $a+1$. To estimate these probabilities from the HSE data, we first use the data on the ages that people started to smoke to calculate the cumulative probability $P(\text{ever-smoker} | a, c, j)$ that someone had initiated smoking by age $a$ years (this gives us the age-pattern of increase in the proportion of people who have ever smoked by a certain age).    
+
+\begin{equation}
+P(\text{ever-smoker} | a, c,j) = 1 - \prod_{a=0}^{a = 35}{\left[1-P(\text{initiate} | a, c,j)\right]}. \label{init1}
+\end{equation}
+
+The main problem with the estimates from (\ref{init1}) is that they are subject to several biases in the survey data, and this causes a mismatch between the data in the HSE obtained by asking people of a certain age if they have ever smoked and the estimates from (\ref{init1}). A way to correct for this mismatch is to apply an adjustment to the estimates (\ref{init1}) (as done by Holford et al. [-@holford2014patterns]). Our adjustment uses as its reference the proportion of people aged 30 years who report ever having smoked - we denote the reference values $P^*(\text{ever-smoker} | a, c,j)$. To estimate the reference values, we fit a linear model to the cohort trend in the proportion of people who have ever smoked in the age band 25--34 years, which smooths the trends and allows extrapolation to future cohorts. We then calculate and apply an adjustment factor $k(a = 30, c,j)$ to the estimate so that, at the reference age of 30 years, the estimated and the reference value equal each other  
+
+\begin{equation}
+k(a = 30, c,j) = \frac{P^*(\text{ever-smoker} | a, c,j)}{P(\text{ever-smoker} | a, c,j)}. \label{initadjf}
+\end{equation}
+
+The adjusted proportions of people who have ever smoked are therefore $P(\text{ever-smoker} | a, c,j)\times{}k(a = 30, c,j)$, which we convert to probabilities of initiating smoking according to (\ref{init1}).   
+
+### Relapse to smoking {#smokerelapse}  
+We define relapse to smoking as the probability $P(\text{relapse}|a, y, \text{quityears},j)$ that an individual aged $a$, who has been a former smoker for a number of years denoted by "quityears", transitions to being a current smoker at age $a+1$ years. Because it is not possible to estimate probabilities of smoking relapse reliably from the HSE data, we instead use an external source of estimates of relapse to smoking from Hawkins et al. [-@hawkins2010long], who analysed individual longitudinal data from the [British Household Panel Survey](https://www.iser.essex.ac.uk/bhps). Hawkins' regression analysis adjusts for several covariates, which we use to link the estimates to the HSE dataset, including time since quit (1, 2, 3, 4, 5, 6+ years), age, sex, education (degree or not), employment (employed or not), relationship status (married, cohabiting or neither), mental health (has condition or not), income, and frequency of GP visits. Hawkins et al did not estimate trends in smoking relapse over calendar time, but when we link the estimates to the HSE data, variation in the above covariates between years of the survey data and between social strata will produce corresponding variation in the probabilities of relapse to smoking.     
+
+### Quitting smoking
+We define quitting smoking by the probability $P_c(\text{quit}|a, y,j)$ that someone who is a current smoker (indicated by subscript $_c$) at age $a$ transitions to being a former smoker at age $a+1$ years. The schematic in Figure \@ref(fig:quitprobworkflow) illustrates how we use our various data sources to estimate quit probabilities from the cross-sectional HSE data, with the addition of external sources of data on relapse to smoking and mortality. The mathematical framework for the estimation of quit probabilities comes from a re-arrangement of the formula that we use to track the change in the numbers of current smokers with age, $A_c(a,j)$ (see equation (2) in the [STPM methodology report](https://stapm.gitlab.io/r-packages/stapmr/articles/smoking_model_maths_report.pdf), pp. 10--11). Re-arranging this equation to have only $P_c(\text{quit}|a,j)$ on the left hand side gives  
+
+\begin{align} 
+P_c(\text{quit}|a,j) &= 1-\frac{A_c(a+1,j)}{A_c(a,j)P_c(\text{survive} | a,j)} \label{quiteq1} \\
+&+\frac{A_f(a,j)P_f(\text{survive} | a,j)P_f(\text{relapse}|a,j)}{A_c(a,j)P_c(\text{survive} | a,j)} \label{quiteq2} \\
+&+\frac{A_n(a,j)P_n(\text{survive} | a,j)P_n(\text{initiate}|a,j)}{A_c(a,j)P_c(\text{survive} | a,j)}. \label{quiteq3}
+\end{align}
+
+-   (\ref{quiteq1}) is the **unadjusted quit probability**. It has the number of current smokers at age $a+1$ years as its numerator, and the expected number of current smokers from age $a$ years who will survive to age $a+1$ years as its denominator. The ratio of these terms is the proportion of current smokers who remain current smokers, adjusted for survival. Therefore, one minus this proportion is the proportion of current smokers who do not remain current smokers, i.e. the proportion who quit.\
+-   (\ref{quiteq2}) is the **adjustment for relapse to smoking** by people who were former smokers at age $a$ years. Without this adjustment, the quit probability would be under-estimated because not all of the current smokers at age $a+1$ years were current smokers at age $a$ years. (\ref{quiteq2}) therefore estimates the number of current smokers at age $a+1$ years who were actually former smokers at age $a$ years and subtracts these from the numerator.\
+-   (\ref{quiteq3}) is the **adjustment for smoking initiation** by people who were never-smokers at age $a$ years. As above, without subtracting these individuals from the numerator, the quit probability would be under-estimated.
+
+### Inputs into the estimation of the probabilities of quitting smoking
+Table \@ref(tab:table1) gives an overview of our data inputs. Here we explain how those inputs are used in the estimation of the probabilities of quitting smoking.  
+
+(i) **Probabilities of smoking initiation**, $P_n(\text{initiate}|a,j)$ (see Section \@ref(smokeinit)).    
+
+(ii) **Probabilities of smoking relapse**, $P_f(\text{relapse}|a, \text{quit-years},j)$ (see Section \@ref(smokerelapse)).    
+
+(iii) **Probabilities of survival by smoking status**. Estimates of $P_\text{never, current or former}(\text{survive}|a,j)$, the probabilities that individuals aged $a$ years with a certain smoking status will survive to age $a+1$ years, might be obtained in a number of ways (e.g. estimated directly from linked smoking and mortality data). We apply an indirect method of estimation that uses HSE survey data on smoking, the associations between smoking and 52 diseases [@webster2018risk], and cause-specific rates of mortality, $m(h, a,j)$. Our method of indirectly estimating the probabilities of survival by smoking status is as follows: We first calculate the relative risks of each disease for each individual, according to their smoking state, $rr_i(h)$. Second, we standardise these individual relative risks so that they sum to one within each age, sex and IMD quintile category, $rr^*_i(h)$ (with categories corresponding to the stratification of mortality rates). Third, we calculate the mean of these standardised relative risks within each category, $\overline{rr^*}(h,a,j)$. Within each category, the mortality rate from each disease to which an individual $i$ is exposed is then \begin{equation}
+    m_i(h) = \frac{m(h,a,j)rr^*_i(h)}{\overline{rr^*}(h,a,j)}. \label{indivmort}
+    \end{equation} The $m_i(h)$ are converted to individual probabilities of death during a one-year interval, $P_i(\text{death},h)$, assuming that the rate of death increases exponentially over time within the age interval. The individual probabilities of death from all causes, $P_i(\text{death})$, are then calculated by summing the $P_i(\text{death},h)$ across causes. The corresponding individual probabilities of survival, $P_i(\text{survive})=1-P_i(\text{death})$, are averaged for each age and smoking status to give $P_n(\text{survive}|a,j)$, $P_c(\text{survive}|a,j)$, and $P_f(\text{survive}|a, \text{quityears},j)$.      
+
+(iv) **Numbers of current, former and never smokers**. In describing the numbers of never, current and former smokers by age and cohort, $A_\text{never, current or former}(a,c,j)$, it is important to the accuracy of our calculation to minimise the influence of changes to the number of individuals due to immigration and emigration, and random survey sampling error. In an attempt to minimise these influences, we designed a method that breaks the estimation of the numbers of people in each smoking state into two parts, $A_\text{never, current or former}(a) = l(a)\theta_\text{never, current or former}(a)$. First, $l(a)$ is the cohort survivorship function (the probability that someone born in a particular year will survive to age $a$ years). We estimate it using historic death rates from the [Human Mortality Database (HMD)](https://www.mortality.org/cgi-bin/hmd/country.php?cntr=GBRCENW&level=1), stratified by sex. We then add socio-economic stratification based on the socio-economic differentials in contemporary death rates. Second, $\theta_\text{never, current or former}(a,j)$ is the proportion of individuals aged $a$ years in each smoking state (i.e. the age-specific proportions of never, current and former smokers). There are many possible methods that might be used to smooth the age and year trends in the proportions of current, former and never smokers calculated from the survey data. The current version of our method uses a multinomial linear regression model, stratified by sex and socio-economic conditions, that we initially parameterised as a 3rd order polynomial response surface, before simplifying the parameter structure and adding an additional 4th order term to improve the description of age-patterns. However, different model fits can be explored.       
+
+```{r quitprobworkflow, fig.cap = "Empirical workflow to estimate quit probabilities. Each diamond is a function in the smktrans R package.", out.width = "100%", echo=FALSE, fig.align="center", out.extra = "", fig.pos = "H"}
+
+knitr::include_graphics("inst/quit_probabilities_workflow.png", auto_pdf = T)
+
+```
+
+## Forecasting smoking state transition probabilities
+After estimating the smoking state transition probabilities of smoking initiation, relapse and quitting, we forecast the future trends in these transition probabilities separately for each of our 10 sex and IMD quintile subgroups. We could project them up to an extremely far time horizon (e.g. the year 2100) but we are conscious that the further into the future that projections are made, the less useful they are likely to be to current decision-making. Our projections of the probabilities of smoking initiation, relapse and quitting are made using three separate methods, designed to suit the way in which each of the three smoking state transition probabilities was estimated.   
+
+(i) Our projection of smoking initiation probabilities is based on extrapolating the linear trends in the proportion of people aged 25-34 years who have ever smoked (i.e. it is a cohort-based projection).     
+
+(ii) For smoking relapse probabilities, which rely heavily on the published analysis of Hawkins et al. [-@hawkins2010long] and so have a less reliable historic time trend on which to base a projection, we assume that the future values of relapse remain constant at their average values over the last five years of survey data (2014--2018).       
+
+(iii) For the probabilities of quitting smoking, we apply a forecasting method based on the Lee-Carter approach [@lee1992modeling]. Our method first smooths and logit transforms the age-period surface of the adjusted quit probabilities, and then based on a singular value decomposition estimates the overall rate of change over time and the age-emphasis of this change.      
+
+As with any forecast, the predicted future trends are sensitive to the time period of past trends that are used to inform the forecast, e.g. the predictions might vary depending on whether the observed trends over the past 5 vs. 10 years are used. The choice of time period might be constrained by the available data, or it might be affected by an understanding of relevant changes to society, e.g. quitting might be informed by trends since 2013, when e-cigarette use began to increase.  
+
+# Discussion
+The methodology that we present enables the use of repeat cross-sectional smoking survey data to estimate the smoking state transition probabilities of smoking initiation, quitting and relapse that underlie the population trends in smoking rates, stratified by sex and socio-economic conditions. The method can be applied to cross-sectional smoking survey data from any geographic region provided it has the appropriate smoking and socio-demographic variables. The significance of this methodology is that it facilitates the modelling of population trends in smoking rates as a function of the trends in the underlying smoking behaviours as characterised by initiation, quitting and relapse. As such, it enables modelling of the population-level impacts of policies or interventions that affect one or more of these smoking state transition probabilities.   
+
+To develop our methodology we drew heavily on the methods developed in the context of the United States by Mendez et al [-@mendez1998has], Anderson et al. [-@anderson2012chapter] and Holford et al. [-@holford2014patterns], which led the way in showing how to estimate probabilities of smoking initiation and quitting from multiple years of cross-sectional smoking survey data. Holford et al. [-@holford2014patterns] used their method to produce annual estimates of the probabilities of smoking initiation and quitting, stratified by age and cohort from age 15 years onwards. We followed Holford et al.'s method to estimate initiation probabilities, who used self-reported data on the ages at which people started smoking, and then corrected their estimates of initiation probabilities for biases by applying an adjustment-factor. We developed extensions to Holford et al.'s method to estimate probabilities of quitting, most notably by explicitly accounting for smoking relapse using published data from Hawkins et al. [-@hawkins2010long] to inform the expected annual probabilities of relapse (Holford et al. account for smoking relapse by only recording people as former smokers if they had been quit for two years), and by accounting for differential mortality by smoking status using published data on the risks of smoking for adult diseases and cause-specific mortality rates. These methodological developments improve the accuracy of estimates of the probabilities of quitting smoking from cross-sectional survey data, and allow the use of the estimated probabilities of quitting within a microsimulation model of smoking that accurately projects population trajectories of smoking rates as a function of the long-term trends in the annual probabilities of smoking initiation, quitting and relapse.      
+
+Modelling the underlying probabilities of smoking initiation, quitting and relapse is also useful for evaluating the past effects of policies and interventions, and for predicting the potential effects of future policies and interventions. Notably there has been a recent wave of development individual-based microsimulation models of smoking, driven by the need to use modelling to understand the potential impact on smoking and health of the rise of e-cigarettes and related diversifications of the nicotine market [@cobb2015markov; @vugrin2015modeling; @hill2017system; @soneji2018quantifying]. The challenge is to construct such models in a way that they can provide effective decision-support to policy-makers and effectively inform the societal debate on tobacco control policy. A first step in this is to have reliable estimates of how the trends in smoking rates over time are underpinned by trends in the probabilities of transitioning among smoking states.      
+
+The main limitations of our methodology stem from the fact that it attempts to infer smoking transition probabilities from cross-sectional data, rather than using data sources from which transition probabilities might be estimated directly. Due to the annual nature of the cross-sectional data that we used, we were constrained to using a one year time step and so our results are not detailed enough to allow us to model the micro-dynamics of individuals initiating, quitting and relapsing several times within the year. Our methodology also does not allow us to estimate how smoking behaviour might be affected by the dynamics of characteristics such as income, family relationships or mental and physical health (this more detailed modelling will likely have to be informed by specialist datasets and analytical methods such as agent based modelling). The adjustments for biases that we apply as part of our method are also unlikely to be perfect and that means that our estimates remain vulnerable to several sources of error (such as errors in survey respondent recall that we were not able to correct for).    
+
+
+# References

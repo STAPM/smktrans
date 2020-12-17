@@ -5,7 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Prepare Health Survey for England data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-bibliography: jss.bib
+bibliography: refs/smoking_transitions.bib
 link-citations: yes
 citation_package: natbib
 biblio-style: vancouver

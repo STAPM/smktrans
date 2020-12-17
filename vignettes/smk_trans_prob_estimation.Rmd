@@ -5,7 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Smoking transition probability estimation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-bibliography: jss.bib
+bibliography: refs/smoking_transitions.bib
 link-citations: yes
 citation_package: natbib
 biblio-style: vancouver
@@ -35,17 +35,9 @@ suppressPackageStartupMessages(library(RColorBrewer))
 ```
 
 
+This vignettes builds on our methodology report by explaining how to use the functions within the `smktrans` R package to produce estimates of the probabilities of smoking initiation and quit in England using data from the Health Survey for England. See `vignette("clean_hse_data")` for an example of the code used to prepare the HSE data for use with these functions.      
 
-# Introduction
-To understand how population-level trends over time in smoking prevalence arise from trends in smoking at the individual-level requires reliable estimates of the probabilities of smoking initiation and quit by age and period. Due to the strong patterning of smoking by sex and socio-economic conditions, investigation of trends in smoking initiation and quitting should also be stratified by these factors. The problem is how to estimate the long-term trends in these smoking transition probabilities when we do not have a long-term dataset that tracks individuals over their lifecourses.   
-
-The solution is to infer smoking transition probabilities from multiple years of cross-sectional survey data, which commonly provide data on the proportion of individuals who are current, former or never smokers at each age, and ask respondents to recall when they initiated and quit smoking. To estimate smoking transition probabilities reliably from these data requires correcting for biases by applying a range of methods and using external data sources to provide information not available in the cross-sectional surveys.    
-
-> See the accompanying research article for full methods and methodology.  
-
-In the `smktrans` R package, we developed a set of functions to use in producing estimates of the probabilities of smoking initiation and quit in England using data from the HSE 2001-2016. The code below illustrates the use of those functions. See `vignette("clean_hse_data")` for an example of the code used to prepare the HSE data for use with these functions.      
-
-# Smoking initiation  
+## Smoking initiation  
 For each cohort, we first estimate the age pattern of increase in the proportion of ever-smokers. This is done by the function `smktrans::init_est()` - you can see its help file by typing `?init_est`. The function takes the self-reported age that cigarettes were first smoked and constructs a vector of 0s, 1s and NAs corresponding to each age for each individual (1 = initiated smoking, NA = censored).  
 
 We constructed the variable for the age that cigarettes were first smoked from the HSE using the `hseclean` R package (see `hseclean::smk_life_history()`).   
@@ -62,8 +54,8 @@ init_data_raw <- smktrans::init_est(
 )
 ```
 
-## Adjustment  
-The main problem with these estimates is that they don't correspond to the proportions of ever-smokers ascertained from asking respondents directly if they had ever smoked cigarettes regularly (this could be due to a range of factors e.g. recall bias or selective mortality). Developing the method used by Holford et al. [-@@holford2014patterns], we estimated and applied an adjustment factor to make these estimates correspond.    
+### Adjustment  
+The main problem with these estimates is that they don't correspond to the proportions of ever-smokers ascertained from asking respondents directly if they had ever smoked cigarettes regularly (this could be due to a range of factors e.g. recall bias or selective mortality). Developing the method used by Holford et al. [-@holford2014patterns], we estimated and applied an adjustment factor to make these estimates correspond.    
 
 The first step in estimation of the adjustment factor is to estimate the proportions of ever-smokers at a certain index age from the question that asks directly about ever-smoking. This is done by the function `smktrans::ever_smoke()`. This function uses `survey::svyglm` to estimate the expected proportions of ever-smokers accounting for survey weights and the survey sampling design. We filter the data to only ages 25-34 years, and stratify the summary by cohort, sex and IMD quintile. The function then fits a survey weighted linear regression (quasibinomial) through the trends, which allows extrapolation to future cohorts.    
 
@@ -99,7 +91,7 @@ smk_init_data <- p_dense(data = copy(init_data_adj), cum_func_var = "p_ever_smok
 
 For our modelling of smoking dynamics, we want initiation probabilities for ages up to 30 years (after which we assume no new initiation) for each period modelled from 2001 onwards.   
 
-# Relapse to smoking  
+## Relapse to smoking  
 We consider the probability of relapse to smoking by former smokers from 1 to 10 years since quitting, which we call long-term relapse. To estimate these probabilities, we combine published estimates of long-term relapse from Hawkins et al. [-@hawkins2010long] with the Health Survey for England data. We do this in the function `smktrans::prep_relapse()`.    
 
 Hawkin's statistical analysis adjusts for several covariates. We only adjust for a subset of these covariates as detailed below:    
@@ -128,10 +120,10 @@ relapse_data <- smktrans::prep_relapse(
 )
 ```
 
-# Quitting smoking  
+## Quitting smoking  
 The age-specific probabilities that a smoker will quit smoking are complex to estimate due to an number of potential biases. The formula we derived (see accompanying article) uses the probabilities of initiation and relapse. It also uses the following inputs:   
 
-## Proportions of current, former and never smokers  
+### Proportions of current, former and never smokers  
 We statistically smooth the HSE trends over age and year in the proportions of current, former and never smokers, using the function `smktrans::trend_fit()`. This fits a multinomial linear model to the distribution of people among current, former and never smoking status, and in this model estimates the variation in trends by sex and socioeconomic conditions in terms of quintiles of the Index of Multiple Deprivation. The model has a logit link function and accounts for the HSE survey weights. Age and year were converted to z-scores (subtracting their mean and dividing by twice their standard deviation) before model fitting.    
 
 The explanatory variables for age $a$ and year $y$ are specified in the form of a cubic response surface, which has the form $a+a^2+y+y^2+ay + a^3 + y^3+a^2y+ay^2$. We added an additional 4th order term for age $a^4$ to better capture the non-linear patterns over age e.g. as individuals initiate and then quit with age.    
@@ -150,7 +142,7 @@ trend_data <- smktrans::trend_fit(hse_data,
   weight_var = "wt_int")
 ```
 
-## Cohort survivorship  
+### Cohort survivorship  
 We approximating the number of individuals alive at each age within each cohort with the cohort survivorship function, which is the probability that an individual will survive to the start of each age interval. We get these data into the right format with the function `smktrans::prep_surv()`.  
 
 The function `smktrans::prep_surv()` calculates the cohort survivorship function over age, i.e. the probability that someone from each cohort will survive to the start of each 1 year age interval, stratified by sex and IMD quintile.  
@@ -170,7 +162,7 @@ survivorship_data <- smktrans::prep_surv(
 )
 ```  
 
-## Survival by smoking status  
+### Survival by smoking status  
 We estimated the age-specific probabilities of surviving from age $a$ to age $a+1$, stratified by sex, IMD quintile and smoking status (current, former, never regular cigarette smoker). These estimates are used to adjust the probability of quitting smoking for the mortality differentials by smoking status. The estimation of survival by smoking status is done in the function `smktrans::smoke_surv()`.    
 
 We do not use individually-linked data that has smoking status linked to time of death. Instead, we infer the mortality differentials by smoking status based on the relative differences in risks for smoking-related diseases among current, former and never smokers. To make these calculations, `smktrans::smoke_surv()` calls the functions `tobalcepi::RRFunc()` and `stapmr::SurvFunc()`. Data on the relative risks of disease by smoking status and the rates of death for each smoking-related disease are also taken from the data stored in the other packages.    
@@ -190,7 +182,7 @@ mortality_data <- smktrans::smoke_surv(
 )
 ```  
 
-## Quit probability calculation  
+### Quit probability calculation  
 Quit probabilities are calculated by the function `smktrans::quit_est()`, which applies the equation we derived (see article) using the parameter estimates above. The result is probabilities of quitting smoking stratified by single years of age (11-88) and period (2001-2015), sex and IMD quintile.    
 
 ```{r i, eval = F}
@@ -208,7 +200,7 @@ quit_data <- quit_est(
 )
 ```  
 
-## Quit probability smoothing and forecast  
+### Quit probability smoothing and forecast  
 The function `smktrans::quit_forecast()` is applied separately to each sex and IMD quintile. It first smooths the pattern in the quit probabilities (a 2-dimensional moving average, where the values considered form a 7-year-square over the single years of age and period). As well as smoothing the trends, this also acts to fill-in missing values based on the information in their neighbouring values by age and period. We fill-in any remaining missing values by approximating the age-specific trend over periods.  
 
 Second, the function forecasts the trend in the quit probabilities based on an singular value decomposition (of logit transformed probabilities). This produces a single vector to describe the trend over period, which we project forwards based on the fit of a linear model to data from a selected year onwards (`first_year`). The decomposition also estimates the age-emphasis of this change i.e. whether the change is relatively fasters at young or old ages - we fit a linear slope through this age-pattern of change. The forecast is based on recombining these two components to predict the trend in future years.    
@@ -227,7 +219,7 @@ forecast_data <- quit_forecast(
 )
 ```  
 
-# References
+## References
 
 
 

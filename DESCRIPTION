@@ -32,12 +32,13 @@ Imports:
     raster,
     data.table,
     survey,
-    Rdpack
-RdMacros: Rdpack
+    Rdpack,
+    lifecycle
+RdMacros: Rdpack, lifecycle
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

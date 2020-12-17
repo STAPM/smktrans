@@ -12,11 +12,12 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# smktrans <img src="tools/hex-smktrans.png" align="right" style="padding-left:10px;background-color:white;" width="100" height="100" />
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)  
-
-
-**DRAFT WORKING VERSION** - The package is usable but there are still bugs and further developments that are being worked through i.e. some code and documentation is still incomplete or in need of being refined. The code and documentation are still undergoing internal review by the analyst team.   
+# Smoking Initiation, Quit and Relapse Probabilities from Cross-sectional Survey Data <img src="logo.png" align="right" style="padding-left:10px;background-color:white;" width="100" height="100" />
+  
+<!-- badges: start -->
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
 
 ## Motivation
 `smktrans` was created as part of a programme of work on the health economics of tobacco and alcohol at the School of Health and Related Research (ScHARR), The University of Sheffield. This programme is based around the construction of the Sheffield Tobacco and Alcohol Policy Model (STAPM), which aims to use comparable methodologies to evaluate the impacts of tobacco and alcohol policies, and investigate the consequences of clustering and interactions between tobacco and alcohol consumption behaviours.   

@@ -8,6 +8,13 @@
 
 <title>Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation — p_dense • smktrans</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation — p_dense" />
 <meta property="og:description" content="Converts the cumulative density function to the probability density function,
 assuming an interval of 1." />
+<meta property="og:image" content="https://stapm.gitlab.io/r-packages/smktrans/logo.png" />
 
 
 
@@ -80,32 +88,28 @@ assuming an interval of 1." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+  <a href="../articles/smktrans.html">Get started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Functions</a>
+</li>
+<li>
+  <a href="../articles/index.html">Technical documentation</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://gitlab.com/stapm/r-packages/smktrans">
+    <span class="fab fa fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="https://stapm.gitlab.io/software.html">
+    <span class="fa fa-code"></span>
      
-    <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/clean_hse_data.html">Prepare Health Survey for England data</a>
-    </li>
-    <li>
-      <a href="../articles/smoketrans.html">Smoking transition probability estimation</a>
-    </li>
-  </ul>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -129,13 +133,13 @@ assuming an interval of 1." />
 assuming an interval of 1.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>p_dense</span>(
-  <span class='no'>data</span>,
-  <span class='no'>cum_func_var</span>,
-  <span class='kw'>strat_vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cohort"</span>, <span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span>),
-  <span class='kw'>lowest_year</span> <span class='kw'>=</span> <span class='fl'>2001</span>,
-  <span class='kw'>max_year</span> <span class='kw'>=</span> <span class='fl'>2100</span>
-)</pre>
+    <pre class="usage"><span class='fu'>p_dense</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>cum_func_var</span>,
+  strat_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cohort"</span>, <span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span><span class='op'>)</span>,
+  lowest_year <span class='op'>=</span> <span class='fl'>2001</span>,
+  max_year <span class='op'>=</span> <span class='fl'>2100</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,12 +178,14 @@ smoking initiation.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='no'>init_data</span> <span class='kw'>&lt;-</span> <span class='fu'>p_dense</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>copy</span>(<span class='no'>init_data_adj</span>), <span class='kw'>cum_func_var</span> <span class='kw'>=</span> <span class='st'>"p_ever_smoker_adj"</span>,
-                    <span class='kw'>strat_vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cohort"</span>, <span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span>))
+<span class='va'>init_data</span> <span class='op'>&lt;-</span> <span class='fu'>p_dense</span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'>copy</span><span class='op'>(</span><span class='va'>init_data_adj</span><span class='op'>)</span>, cum_func_var <span class='op'>=</span> <span class='st'>"p_ever_smoker_adj"</span>,
+                    strat_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cohort"</span>, <span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span><span class='op'>)</span><span class='op'>)</span>
 
-}</div></pre>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -195,7 +201,7 @@ smoking initiation.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

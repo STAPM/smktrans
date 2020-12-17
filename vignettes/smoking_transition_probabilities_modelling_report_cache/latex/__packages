@@ -1,0 +1,14 @@
+base
+magrittr
+knitr
+kableExtra
+data.table
+ggplot2
+readxl
+tobalcepi
+stapmr
+smktrans
+ggthemes
+RColorBrewer
+cowplot
+plyr
