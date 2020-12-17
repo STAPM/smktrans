@@ -14,6 +14,11 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 
 ## Motivation
 
+The motivation for `smktrans` was to develop a set of functions to
+estimate the transition probabilities among current, former and never
+smoking states (i.e. initiation, quitting and relapse) from repeat
+cross-sectional survey data.
+
 `smktrans` was created as part of a programme of work on the health
 economics of tobacco and alcohol at the School of Health and Related
 Research (ScHARR), The University of Sheffield. This programme is based
@@ -23,20 +28,12 @@ the impacts of tobacco and alcohol policies, and investigate the
 consequences of clustering and interactions between tobacco and alcohol
 consumption behaviours.
 
-The motivation for `smktrans` was to develop a set of functions to
-estimate the transition probabilities among current, former and never
-smoking states (i.e. initiation, quitting and relapse) from repeat
-cross-sectional survey data.
-
 ## Usage
 
 The **inputs** are:
 
-1.  Several years of annual cross-sectional survey data (the package was
-    originally designed to work with Health Survey for England data and
-    is being extended to Scottish Health Survey data).  
-2.  Estimates of long-term smoking relapse (currently from Hawkins et al
-    2010).  
+1.  Several years of annual cross-sectional survey data on smoking.  
+2.  Estimates of long-term smoking relapse.  
 3.  Estimates of smoking related disease risk and mortality rates.
 
 The **processes** applied by the functions in `smktrans` implement
@@ -55,11 +52,11 @@ probabilities.
 
 `smktrans` is currently available only to members of the project team
 (but please contact Duncan Gillespie <duncan.gillespie@sheffield.ac.uk>
-to discuss). To access you need to [**sign-up for a GitLab
-account**](https://gitlab.com/). You will then need to be added to the
+to discuss). To access you need to [sign-up for a GitLab
+account](https://gitlab.com/). You will then need to be added to the
 STAPM project team to gain access.
 
-Once that is sorted, you can **install the development version** from
+Once that is sorted, you can the latest or a specified version from
 GitLab with:
 
 ``` r
@@ -67,7 +64,7 @@ GitLab with:
 #install.packages("getPass")
 
 devtools::install_git(
-  "https://gitlab.com/stapm/smktrans.git", 
+  "https://gitlab.com/stapm/r-packages/smktrans.git", 
   credentials = git2r::cred_user_pass("uname", getPass::getPass()),
   ref = "x.x.x",
   build_vignettes = TRUE
@@ -95,4 +92,5 @@ library(ggplot2) # for plotting
 Please cite the latest version of the package using:  
 “Duncan Gillespie, Laura Webster and Alan Brennan (2020). smktrans:
 Smoking Initiation and Quit Probabilities from Cross-sectional Survey
-Data. R package version x.x.x. <https://stapm.gitlab.io/smktrans/>.”
+Data. R package version x.x.x.
+<https://stapm.gitlab.io/r-packages/smktrans/>.”

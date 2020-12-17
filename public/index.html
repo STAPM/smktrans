@@ -88,17 +88,17 @@
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#motivation" class="anchor"></a>Motivation</h2>
-<p><code>smktrans</code> was created as part of a programme of work on the health economics of tobacco and alcohol at the School of Health and Related Research (ScHARR), The University of Sheffield. This programme is based around the construction of the Sheffield Tobacco and Alcohol Policy Model (STAPM), which aims to use comparable methodologies to evaluate the impacts of tobacco and alcohol policies, and investigate the consequences of clustering and interactions between tobacco and alcohol consumption behaviours.</p>
 <p>The motivation for <code>smktrans</code> was to develop a set of functions to estimate the transition probabilities among current, former and never smoking states (i.e. initiation, quitting and relapse) from repeat cross-sectional survey data.</p>
+<p><code>smktrans</code> was created as part of a programme of work on the health economics of tobacco and alcohol at the School of Health and Related Research (ScHARR), The University of Sheffield. This programme is based around the construction of the Sheffield Tobacco and Alcohol Policy Model (STAPM), which aims to use comparable methodologies to evaluate the impacts of tobacco and alcohol policies, and investigate the consequences of clustering and interactions between tobacco and alcohol consumption behaviours.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>The <strong>inputs</strong> are:</p>
 <ol>
-<li>Several years of annual cross-sectional survey data (the package was originally designed to work with Health Survey for England data and is being extended to Scottish Health Survey data).<br>
+<li>Several years of annual cross-sectional survey data on smoking.<br>
 </li>
-<li>Estimates of long-term smoking relapse (currently from Hawkins et al 2010).<br>
+<li>Estimates of long-term smoking relapse.<br>
 </li>
 <li>Estimates of smoking related disease risk and mortality rates.</li>
 </ol>
@@ -108,14 +108,14 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>smktrans</code> is currently available only to members of the project team (but please contact Duncan Gillespie <a href="mailto:duncan.gillespie@sheffield.ac.uk" class="email">duncan.gillespie@sheffield.ac.uk</a> to discuss). To access you need to <a href="https://gitlab.com/"><strong>sign-up for a GitLab account</strong></a>. You will then need to be added to the STAPM project team to gain access.</p>
-<p>Once that is sorted, you can <strong>install the development version</strong> from GitLab with:</p>
+<p><code>smktrans</code> is currently available only to members of the project team (but please contact Duncan Gillespie <a href="mailto:duncan.gillespie@sheffield.ac.uk" class="email">duncan.gillespie@sheffield.ac.uk</a> to discuss). To access you need to <a href="https://gitlab.com/">sign-up for a GitLab account</a>. You will then need to be added to the STAPM project team to gain access.</p>
+<p>Once that is sorted, you can the latest or a specified version from GitLab with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#install.packages("devtools")</span>
 <span class="co">#install.packages("getPass")</span>
 
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_git</a></span><span class="op">(</span>
-  <span class="st">"https://gitlab.com/stapm/smktrans.git"</span>, 
+  <span class="st">"https://gitlab.com/stapm/r-packages/smktrans.git"</span>, 
   credentials <span class="op">=</span> <span class="fu">git2r</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/git2r/reference/cred_user_pass.html">cred_user_pass</a></span><span class="op">(</span><span class="st">"uname"</span>, <span class="fu">getPass</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/getPass/man/getPass.html">getPass</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
   ref <span class="op">=</span> <span class="st">"x.x.x"</span>,
   build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>
@@ -136,7 +136,7 @@
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Please cite the latest version of the package using:<br>
-“Duncan Gillespie, Laura Webster and Alan Brennan (2020). smktrans: Smoking Initiation and Quit Probabilities from Cross-sectional Survey Data. R package version x.x.x. <a href="https://stapm.gitlab.io/smktrans/" class="uri">https://stapm.gitlab.io/smktrans/</a>.”</p>
+“Duncan Gillespie, Laura Webster and Alan Brennan (2020). smktrans: Smoking Initiation and Quit Probabilities from Cross-sectional Survey Data. R package version x.x.x. <a href="https://stapm.gitlab.io/r-packages/smktrans/" class="uri">https://stapm.gitlab.io/r-packages/smktrans/</a>.”</p>
 </div>
 </div>
   </div>
