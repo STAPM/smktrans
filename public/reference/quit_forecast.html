@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Forecast probabilities of quitting  — quit_forecast • smktrans</title>
+<title>Forecast probabilities of smoking initiation, quitting and relapse  — quit_forecast • smktrans</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,11 @@
 
 
 
-<meta property="og:title" content="Forecast probabilities of quitting  — quit_forecast" />
-<meta property="og:description" content="Forecasts the period trends from the baseline of 2015 in the probabilities of smoking quit,
-by age, sex and IMD quintile." />
+<meta property="og:title" content="Forecast probabilities of smoking initiation, quitting and relapse  — quit_forecast" />
+<meta property="og:description" content="Forecasts the period trends in the probabilities of smoking initiation, quitting and relapse
+by age, sex and IMD quintile. This function was designed originally to forecast just 
+the probabilities of quitting but has since been extended to forecast initiation and relapse 
+probabilities too." />
 <meta property="og:image" content="https://stapm.gitlab.io/r-packages/smktrans/logo.png" />
 
 
@@ -91,7 +93,7 @@ by age, sex and IMD quintile." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">smktrans</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -133,14 +135,16 @@ by age, sex and IMD quintile." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Forecast probabilities of quitting <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
+    <h1>Forecast probabilities of smoking initiation, quitting and relapse <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
     
     <div class="hidden name"><code>quit_forecast.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Forecasts the period trends from the baseline of 2015 in the probabilities of smoking quit,
-by age, sex and IMD quintile.</p>
+    <p>Forecasts the period trends in the probabilities of smoking initiation, quitting and relapse
+by age, sex and IMD quintile. This function was designed originally to forecast just 
+the probabilities of quitting but has since been extended to forecast initiation and relapse 
+probabilities too.</p>
     </div>
 
     <pre class="usage"><span class='fu'>quit_forecast</span><span class='op'>(</span>
@@ -150,6 +154,7 @@ by age, sex and IMD quintile.</p>
   cont_limit <span class='op'>=</span> <span class='cn'>NULL</span>,
   oldest_year <span class='op'>=</span> <span class='fl'>2001</span>,
   youngest_age <span class='op'>=</span> <span class='fl'>11</span>,
+  oldest_age <span class='op'>=</span> <span class='fl'>88</span>,
   first_year <span class='op'>=</span> <span class='fl'>2010</span>,
   jump_off_year <span class='op'>=</span> <span class='fl'>2015</span>,
   time_horizon <span class='op'>=</span> <span class='fl'>2050</span>
@@ -160,11 +165,11 @@ by age, sex and IMD quintile.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Data table containing either the estimates of smoking quit.</p></td>
+      <td><p>Data table containing the probabilities to be forecast.</p></td>
     </tr>
     <tr>
       <th>forecast_var</th>
-      <td><p>Character - the name of the variable to be forecast.</p></td>
+      <td><p>Character - the name of the probability variable to be forecast.</p></td>
     </tr>
     <tr>
       <th>forecast_type</th>
@@ -186,6 +191,11 @@ or to keep the forecast variable constant at its last observed value ("stationar
 Default is set to 11 for England.</p></td>
     </tr>
     <tr>
+      <th>oldest_age</th>
+      <td><p>Integer - the oldest age we have in the data - set to 88 for quitting and relapse 
+and 30 for initiation.</p></td>
+    </tr>
+    <tr>
       <th>first_year</th>
       <td><p>Integer - the first year of data.</p></td>
     </tr>
@@ -201,11 +211,11 @@ Default is set to 11 for England.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a data table containing the observed and forecast data.</p>
+    <p>Returns a data.table containing the observed and forecast data.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The forecast is based on applying a Singular value decomposition (SVD)
-to the logit transformed matrix of quit prababilities by
+to the logit transformed matrix of quit probabilities by
 age and year for each subgroup.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

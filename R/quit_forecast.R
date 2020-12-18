@@ -1,15 +1,17 @@
 
-#' Forecast probabilities of quitting \lifecycle{maturing}
+#' Forecast probabilities of smoking initiation, quitting and relapse \lifecycle{maturing}
 #'
-#' Forecasts the period trends from the baseline of 2015 in the probabilities of smoking quit,
-#' by age, sex and IMD quintile.
+#' Forecasts the period trends in the probabilities of smoking initiation, quitting and relapse
+#' by age, sex and IMD quintile. This function was designed originally to forecast just 
+#' the probabilities of quitting but has since been extended to forecast initiation and relapse 
+#' probabilities too.
 #'
 #' The forecast is based on applying a Singular value decomposition (SVD)
-#' to the logit transformed matrix of quit prababilities by
+#' to the logit transformed matrix of quit probabilities by
 #' age and year for each subgroup.
 #'
-#' @param data Data table containing either the estimates of smoking quit.
-#' @param forecast_var Character - the name of the variable to be forecast.
+#' @param data Data table containing the probabilities to be forecast.
+#' @param forecast_var Character - the name of the probability variable to be forecast.
 #' @param forecast_type Character - whether to apply the estimated 
 #' rates of proportional change ("continuing")
 #' or to keep the forecast variable constant at its last observed value ("stationary").
@@ -17,13 +19,15 @@
 #' @param oldest_year Integer - the oldest year of data we have. Default is set to 2001 for England. 
 #' @param youngest_age Integer - the youngest age we have in the data. 
 #' Default is set to 11 for England.
+#' @param oldest_age Integer - the oldest age we have in the data - set to 88 for quitting and relapse 
+#' and 30 for initiation.
 #' @param first_year Integer - the first year of data.
 #' @param jump_off_year Integer - the last year of data.
 #' @param time_horizon Integer - the last year of the forecast period.
 #' 
 #' @importFrom data.table copy := setDT melt rbindlist dcast
 #' 
-#' @return Returns a data table containing the observed and forecast data.
+#' @return Returns a data.table containing the observed and forecast data.
 #' @export
 #'
 #' @examples
@@ -48,20 +52,21 @@ quit_forecast <- function(
   cont_limit = NULL,
   oldest_year = 2001,
   youngest_age = 11,
+  oldest_age = 88,
   first_year = 2010,
   jump_off_year = 2015,
   time_horizon = 2050
 ) {
 
   # The ages and years
-  ages <- youngest_age:88
+  ages <- youngest_age:oldest_age
   years <- oldest_year:jump_off_year
   proj_years <- (jump_off_year + 1):time_horizon
 
   n <- length(ages)
   m <- length(years)
 
-  data <- copy(data[age %in% ages])
+  data <- copy(data[age %in% ages & year <= jump_off_year])
 
   # Loop through subgroups
 

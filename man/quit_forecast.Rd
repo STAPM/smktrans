@@ -2,7 +2,7 @@
 % Please edit documentation in R/quit_forecast.R
 \name{quit_forecast}
 \alias{quit_forecast}
-\title{Forecast probabilities of quitting \lifecycle{maturing}}
+\title{Forecast probabilities of smoking initiation, quitting and relapse \lifecycle{maturing}}
 \usage{
 quit_forecast(
   data,
@@ -11,15 +11,16 @@ quit_forecast(
   cont_limit = NULL,
   oldest_year = 2001,
   youngest_age = 11,
+  oldest_age = 88,
   first_year = 2010,
   jump_off_year = 2015,
   time_horizon = 2050
 )
 }
 \arguments{
-\item{data}{Data table containing either the estimates of smoking quit.}
+\item{data}{Data table containing the probabilities to be forecast.}
 
-\item{forecast_var}{Character - the name of the variable to be forecast.}
+\item{forecast_var}{Character - the name of the probability variable to be forecast.}
 
 \item{forecast_type}{Character - whether to apply the estimated 
 rates of proportional change ("continuing")
@@ -32,6 +33,9 @@ or to keep the forecast variable constant at its last observed value ("stationar
 \item{youngest_age}{Integer - the youngest age we have in the data. 
 Default is set to 11 for England.}
 
+\item{oldest_age}{Integer - the oldest age we have in the data - set to 88 for quitting and relapse 
+and 30 for initiation.}
+
 \item{first_year}{Integer - the first year of data.}
 
 \item{jump_off_year}{Integer - the last year of data.}
@@ -39,15 +43,17 @@ Default is set to 11 for England.}
 \item{time_horizon}{Integer - the last year of the forecast period.}
 }
 \value{
-Returns a data table containing the observed and forecast data.
+Returns a data.table containing the observed and forecast data.
 }
 \description{
-Forecasts the period trends from the baseline of 2015 in the probabilities of smoking quit,
-by age, sex and IMD quintile.
+Forecasts the period trends in the probabilities of smoking initiation, quitting and relapse
+by age, sex and IMD quintile. This function was designed originally to forecast just 
+the probabilities of quitting but has since been extended to forecast initiation and relapse 
+probabilities too.
 }
 \details{
 The forecast is based on applying a Singular value decomposition (SVD)
-to the logit transformed matrix of quit prababilities by
+to the logit transformed matrix of quit probabilities by
 age and year for each subgroup.
 }
 \examples{
