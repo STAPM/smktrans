@@ -1,5 +1,5 @@
 
-#' Prepare long-term relapse probabilities
+#' Prepare long-term relapse probabilities \lifecycle{stable}
 #'
 #' Combines published estimates of long-term relapse with the Health Survey for England data
 #' to arrive at the expected values for relapse probabilities within defined subgroups.
@@ -202,12 +202,14 @@ prep_relapse <- function(
 
   relapse_by_age_imd_timesincequit <- copy(data_sm)
 
+  
+  ###########
+  
   # Add future values
   # rather than forecast, keep simple and assume that all future years
-  # have the average values from the last 5 years
-  temp <- relapse_by_age_imd_timesincequit[year %in% (2018 - 4):2018]
-  temp <- temp[ , list(p_relapse = mean(p_relapse, na.rm = T)),
-                by = c("age", "time_since_quit", "sex", "imd_quintile")]
+  # have the value from the last year
+  temp <- relapse_by_age_imd_timesincequit[year == highest_year]
+  #temp <- temp[ , list(p_relapse = mean(p_relapse, na.rm = T)), by = c("age", "time_since_quit", "sex", "imd_quintile")]
 
   next_year <- highest_year + 1
 
@@ -218,6 +220,9 @@ prep_relapse <- function(
       copy(temp)[ , year := i]), use.names = T)
 
   }
+  
+  ###########
+  
 
   ########################################
   # Relapse probability by age and imd_quintile - for trans prob estimation
@@ -291,38 +296,6 @@ return(list(
   relapse_by_age_imd = relapse_by_age_imd[]
 ))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

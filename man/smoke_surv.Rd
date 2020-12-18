@@ -2,7 +2,7 @@
 % Please edit documentation in R/smoke_surv.R
 \name{smoke_surv}
 \alias{smoke_surv}
-\title{Estimate age-specific probabilities of death by smoking status}
+\title{Estimate age-specific probabilities of death by smoking status \lifecycle{maturing}}
 \usage{
 smoke_surv(
   data,

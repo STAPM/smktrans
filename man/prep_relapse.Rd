@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_relapse.R
 \name{prep_relapse}
 \alias{prep_relapse}
-\title{Prepare long-term relapse probabilities}
+\title{Prepare long-term relapse probabilities \lifecycle{stable}}
 \usage{
 prep_relapse(
   data,

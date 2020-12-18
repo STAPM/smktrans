@@ -1,5 +1,5 @@
 
-#' Smooth age and period pattern in probability values
+#' Smooth age and period pattern in probability values \lifecycle{maturing}
 #'
 #' Applies a 2D moving average smooth to the trends over age and period, 
 #' and fills any remaining missing values by 

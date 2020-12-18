@@ -2,7 +2,7 @@
 % Please edit documentation in R/bin_var.R
 \name{bin_var}
 \alias{bin_var}
-\title{Bin numeric variable}
+\title{Bin numeric variable \lifecycle{stable}}
 \usage{
 bin_var(x, n_bins)
 }

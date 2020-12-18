@@ -2,7 +2,7 @@
 % Please edit documentation in R/quit_forecast.R
 \name{quit_forecast}
 \alias{quit_forecast}
-\title{Forecast probabilities of quitting}
+\title{Forecast probabilities of quitting \lifecycle{maturing}}
 \usage{
 quit_forecast(
   data,

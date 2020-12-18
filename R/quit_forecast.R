@@ -1,5 +1,5 @@
 
-#' Forecast probabilities of quitting
+#' Forecast probabilities of quitting \lifecycle{maturing}
 #'
 #' Forecasts the period trends from the baseline of 2015 in the probabilities of smoking quit,
 #' by age, sex and IMD quintile.

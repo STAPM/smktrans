@@ -2,7 +2,7 @@
 % Please edit documentation in R/ever_smoke.R
 \name{ever_smoke}
 \alias{ever_smoke}
-\title{Summarise and project trends in ever-smoking}
+\title{Summarise and project trends in ever-smoking  \lifecycle{maturing}}
 \usage{
 ever_smoke(data, time_horizon = 2100, num_bins = 7, model = "England")
 }

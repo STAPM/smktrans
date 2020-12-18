@@ -2,7 +2,7 @@
 % Please edit documentation in R/init_est.R
 \name{init_est}
 \alias{init_est}
-\title{Cohort specific smoking initiation}
+\title{Cohort specific smoking initiation \lifecycle{stable}}
 \usage{
 init_est(data, strat_vars = c("sex", "imd_quintile"))
 }

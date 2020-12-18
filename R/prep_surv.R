@@ -1,5 +1,5 @@
 
-#' Estimate socioeconomic differences in cohort survivorship
+#' Estimate socioeconomic differences in cohort survivorship \lifecycle{maturing}
 #'
 #' Takes mortality rates from birth since 1922 and combines
 #' them with socioeconomically stratified mortality

@@ -1,6 +1,6 @@
 
 
-#' Statistically model trends in current, former and never smoking
+#' Statistically model trends in current, former and never smoking \lifecycle{maturing}
 #'
 #' Fit a multinomial model to the distribution of people 
 #' among current, former and never smoking status

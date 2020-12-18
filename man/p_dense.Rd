@@ -2,7 +2,7 @@
 % Please edit documentation in R/p_dense.R
 \name{p_dense}
 \alias{p_dense}
-\title{Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation}
+\title{Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation \lifecycle{maturing}}
 \usage{
 p_dense(
   data,

@@ -1,5 +1,5 @@
 
-#' Estimate age-specific probabilities of death by smoking status
+#' Estimate age-specific probabilities of death by smoking status \lifecycle{maturing}
 #'
 #' Estimates the probility that an individual will survive 
 #' from the beinning to the end of a year interval

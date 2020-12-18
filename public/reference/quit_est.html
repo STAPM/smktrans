@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate smoking quit probabilities — quit_est • smktrans</title>
+<title>Estimate smoking quit probabilities  — quit_est • smktrans</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Estimate smoking quit probabilities — quit_est" />
+<meta property="og:title" content="Estimate smoking quit probabilities  — quit_est" />
 <meta property="og:description" content="Combines the various inputs together to estimate smoking quit
 probabilities according to the formula given." />
 <meta property="og:image" content="https://stapm.gitlab.io/r-packages/smktrans/logo.png" />
@@ -91,7 +91,7 @@ probabilities according to the formula given." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">smktrans</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@ probabilities according to the formula given." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate smoking quit probabilities</h1>
+    <h1>Estimate smoking quit probabilities <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
     
     <div class="hidden name"><code>quit_est.Rd</code></div>
     </div>
@@ -267,7 +267,7 @@ This is 11 for England, and 16 for Scotland. Default is 11.</p></td>
 <span class='co'># Estimate age-specific probabilities of death by smoking status</span>
 <span class='va'>mortality_data</span> <span class='op'>&lt;-</span> <span class='fu'>smktrans</span><span class='fu'>::</span><span class='fu'><a href='smoke_surv.html'>smoke_surv</a></span><span class='op'>(</span>
   data <span class='op'>=</span> <span class='va'>hse_data</span>,
-  diseases  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='fu'>tobalcepi</span><span class='fu'>::</span><span class='va'><a href='https://stapm.gitlab.io/r-packages/tobalcepi//reference/tobacco_relative_risks.html'>tobacco_relative_risks</a></span><span class='op'>$</span><span class='va'>condition</span><span class='op'>)</span>,
+  diseases  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='fu'>tobalcepi</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/tobalcepi/man/tobacco_relative_risks.html'>tobacco_relative_risks</a></span><span class='op'>$</span><span class='va'>condition</span><span class='op'>)</span>,
   mx_data <span class='op'>=</span> <span class='fu'>stapmr</span><span class='fu'>::</span><span class='va'>tob_mort_data_cause</span>
 <span class='op'>)</span>
 

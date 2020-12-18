@@ -2,7 +2,7 @@
 % Please edit documentation in R/trend_fit.R
 \name{trend_fit}
 \alias{trend_fit}
-\title{Statistically model trends in current, former and never smoking}
+\title{Statistically model trends in current, former and never smoking \lifecycle{maturing}}
 \usage{
 trend_fit(
   data,

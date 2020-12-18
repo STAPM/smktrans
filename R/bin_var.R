@@ -1,4 +1,4 @@
-#' Bin numeric variable
+#' Bin numeric variable \lifecycle{stable}
 #' 
 #' Converts a numeric variable to bins of specified number, where the binned variable is also numeric and has the mid-points of the bins.
 #' 
