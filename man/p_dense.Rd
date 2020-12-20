@@ -2,13 +2,13 @@
 % Please edit documentation in R/p_dense.R
 \name{p_dense}
 \alias{p_dense}
-\title{Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation \lifecycle{maturing}}
+\title{Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation \lifecycle{stable}}
 \usage{
 p_dense(
   data,
   cum_func_var,
   strat_vars = c("cohort", "sex", "imd_quintile"),
-  lowest_year = 2001,
+  lowest_year = 2003,
   max_year = 2100
 )
 }
@@ -22,8 +22,8 @@ containing the cumulative probabilities.}
 \item{strat_vars}{Character vector - the variables by which to stratify the calculation.}
 
 \item{lowest_year}{integer - lowest year of data available 
-(for England this is 2001 and for Scotland this is 2008). 
-Default is set to 2001, for HSE.}
+(for England this is 2003 and for Scotland this is 2008). 
+Default is set to 2003, for HSE.}
 
 \item{max_year}{integer - the latest year considered in the data + forecast}
 }

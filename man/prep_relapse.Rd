@@ -7,7 +7,7 @@
 prep_relapse(
   data,
   hawkins_relapse = smktrans::hawkins_relapse,
-  lowest_year = 2001,
+  lowest_year = 2003,
   highest_year = 2018,
   youngest_age = 11
 )
@@ -19,8 +19,8 @@ prep_relapse(
 long-term smoking relapse probability
  from \insertCite{hawkins2010long;textual}{smktrans}.}
 
-\item{lowest_year}{integer - lowest year of data available (for England this is 2001
-and for Scotland this is 2008). Default is set to 2001, for HSE.}
+\item{lowest_year}{integer - lowest year of data available (for England this is 2003
+and for Scotland this is 2008). Default is set to 2003, for HSE.}
 
 \item{highest_year}{integer - highest year of data available.}
 

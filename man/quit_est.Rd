@@ -5,49 +5,49 @@
 \title{Estimate smoking quit probabilities \lifecycle{maturing}}
 \usage{
 quit_est(
-  dataq,
-  trend_dataq,
-  survivorship_dataq,
-  mortality_dataq,
-  relapse_dataq,
-  initiation_dataq,
-  lowest_yearq = 2001,
-  highest_yearq = 2018,
-  youngest_yearq = 11
+  data,
+  trend_data,
+  survivorship_data,
+  mortality_data,
+  relapse_data,
+  initiation_data,
+  min_age = 11,
+  max_age = 89,
+  min_year = 2003,
+  max_year = 2018
 )
 }
 \arguments{
-\item{dataq}{Data table containing individual-level survey data over multiple years.}
+\item{data}{Data table containing individual-level survey data over multiple years.}
 
-\item{trend_dataq}{Data table containing the statistically model trends in
+\item{trend_data}{Data table containing the statistically model trends in
 current, former and never smoking
-The output of trend_fit().}
+The output of \code{trend_fit()}.}
 
-\item{survivorship_dataq}{Data table containing estimates of cohort survivorship by
-age, sex and IMD quintile. The output of prep_surv().}
+\item{survivorship_data}{Data table containing estimates of cohort survivorship by
+age, sex and IMD quintile. The output of \code{prep_surv()}.}
 
-\item{mortality_dataq}{Data table containing the estimated age-specific
+\item{mortality_data}{Data table containing the estimated age-specific
 probabilities of death by smoking status.
-The output of smoke_surv().}
+The output of \code{smoke_surv()}.}
 
-\item{relapse_dataq}{Data table containing estimates of long-term relapse probabilities.
-The output of prep_relapse().}
+\item{relapse_data}{Data table containing estimates of long-term relapse probabilities.
+The output of \code{prep_relapse()}.}
 
-\item{initiation_dataq}{Data table containing estimates of initiation probabilities
+\item{initiation_data}{Data table containing estimates of initiation probabilities
 by age, cohort, sex and IMD quintile.
-The output of init_adj().}
+The output of \code{init_adj()}.}
 
-\item{lowest_yearq}{integer. Oldest year of data available.
-This is 2001 for England and 2008 for Scotland. Default is 2001.}
+\item{min_age}{Integer - the youngest age considered.}
 
-\item{highest_yearq}{integer. Newest year of data available.
-This is 2016 for England and 2018 for Scotland. Default is 2008.}
+\item{max_age}{Integer - the oldest age considered.}
 
-\item{youngest_yearq}{integer. Youngest age in the data.
-This is 11 for England, and 16 for Scotland. Default is 11.}
+\item{min_year}{Integer - the earliest year of observed data.}
+
+\item{max_year}{Integer - the latest year of observed data.}
 }
 \value{
-Returns a data table containing the estimated quit probabilities.
+Returns a data.table containing the estimated quit probabilities.
 }
 \description{
 Combines the various inputs together to estimate smoking quit

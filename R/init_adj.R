@@ -11,8 +11,10 @@
 #' ever-smoking by age, sex and IMD quintile.
 #' @param ever_smoke_data Data table - reference values for the proportion of ever-smokers.
 #' @param ref_age Integer - the index age for calibration
-#' @param cohorts Integer vector - the cohorts to be adjusted
-#' @param period_start Integer - the first year of data
+#' @param cohorts Integer vector - the cohorts to be adjusted. 
+#' The min cohort might sensibly be period_start - ref_age, 
+#' and the max cohort might be the baseline year of the model e.g. 2020.
+#' @param period_start Integer - the first year of data (England - 2003, Scotland - 2008)
 #' @param period_end Integer - the last year of data
 #' 
 #' @importFrom data.table setDT := copy
@@ -63,8 +65,8 @@ init_adj <- function(
   init_data,
   ever_smoke_data,
   ref_age = 30,
-  cohorts = 1971:2020,
-  period_start = 2001,
+  cohorts = 1973:2020,
+  period_start = 2003,
   period_end = 2018
 ) {
 

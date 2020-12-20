@@ -1,5 +1,5 @@
 
-#' Estimate age-specific probabilities of death by smoking status \lifecycle{maturing}
+#' Estimate age-specific probabilities of death by smoking status \lifecycle{stable}
 #'
 #' Estimates the probility that an individual will survive 
 #' from the beinning to the end of a year interval
@@ -12,13 +12,17 @@
 #' @param diseases Character vector of smoking related conditions.
 #' @param mx_data Data table containing the cause-specific rates of death 
 #' from smoking related diseases.
+#' @template age-year
+#' 
 #' @importFrom data.table copy rbindlist setDT setorderv := dcast
 #' @importFrom mgcv gam s
+#' 
 #' @return Returns two data tables containing the age-specific 
 #' probabilities of death in and survival through a
 #' 1 year age interval, stratified by sex, year, imd_quintile and smoking state. 
 #' One data table has the detailed estimates and the
 #' other has been tidied into the form needed for quit probability estimation.
+#' 
 #' @export
 #'
 #' @examples
@@ -27,16 +31,20 @@
 #'
 #' test_data <- smoke_surv(
 #'   data = hse_data,
-#'   diseases  = unique(tobalcepi::tobacco_relative_risks$condition),
-#'   mx_data
+#'   diseases  = tobalcepi::tob_disease_names,
+#'   mx_data = tob_mort_data_cause
 #' )
 #'
 #' }
 #'
 smoke_surv <- function(
   data,
-  diseases = unique(tobalcepi::tobacco_relative_risks$condition),
-  mx_data
+  diseases = tobalcepi::tob_disease_names,
+  mx_data,
+  min_age = 11,
+  max_age = 89,
+  min_year = 2003,
+  max_year = 2018
 ) {
 
   ###################################################
@@ -51,7 +59,7 @@ smoke_surv <- function(
   ###################################################
   # Calculate probabilities of death
 
-  for(k_year in 2001:2018) {
+  for(k_year in min_year:max_year) {
 
     temp <- stapmr::SurvFunc(
       data = data[year == k_year],
@@ -61,7 +69,7 @@ smoke_surv <- function(
       remove_dead = F
     )
 
-    if(k_year == 2001) {
+    if(k_year == min_year) {
       data_out <- copy(temp)
     } else {
       data_out <- rbindlist(list(data_out, copy(temp)), use.names = T)
@@ -75,8 +83,8 @@ smoke_surv <- function(
                           by = c("year", "sex", "age", "imd_quintile", "smk.state")]
 
   domain <- data.frame(expand.grid(
-    age = 11:89,
-    year = 2001:2018,
+    age = min_age:max_age,
+    year = min_year:max_year,
     sex = c("Male", "Female"),
     imd_quintile = unique(death_data$imd_quintile),
     smk.state = c("current", "former", "never")
@@ -96,7 +104,7 @@ smoke_surv <- function(
   # Fit a smooth curve through the probabilities
   domain[ , qx_fits := predict(
     gam(qx ~ s(age, k = 10)),
-    newdata = data.frame(age = 11:89)),
+    newdata = data.frame(age = min_age:max_age)),
     by = c("year", "sex", "imd_quintile", "smk.state")]
 
   domain[qx_fits < 0, qx_fits := 0]

@@ -91,7 +91,7 @@ probabilities according to the formula given." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">smktrans</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -144,72 +144,74 @@ probabilities according to the formula given.</p>
     </div>
 
     <pre class="usage"><span class='fu'>quit_est</span><span class='op'>(</span>
-  <span class='va'>dataq</span>,
-  <span class='va'>trend_dataq</span>,
-  <span class='va'>survivorship_dataq</span>,
-  <span class='va'>mortality_dataq</span>,
-  <span class='va'>relapse_dataq</span>,
-  <span class='va'>initiation_dataq</span>,
-  lowest_yearq <span class='op'>=</span> <span class='fl'>2001</span>,
-  highest_yearq <span class='op'>=</span> <span class='fl'>2018</span>,
-  youngest_yearq <span class='op'>=</span> <span class='fl'>11</span>
+  <span class='va'>data</span>,
+  <span class='va'>trend_data</span>,
+  <span class='va'>survivorship_data</span>,
+  <span class='va'>mortality_data</span>,
+  <span class='va'>relapse_data</span>,
+  <span class='va'>initiation_data</span>,
+  min_age <span class='op'>=</span> <span class='fl'>11</span>,
+  max_age <span class='op'>=</span> <span class='fl'>89</span>,
+  min_year <span class='op'>=</span> <span class='fl'>2003</span>,
+  max_year <span class='op'>=</span> <span class='fl'>2018</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dataq</th>
+      <th>data</th>
       <td><p>Data table containing individual-level survey data over multiple years.</p></td>
     </tr>
     <tr>
-      <th>trend_dataq</th>
+      <th>trend_data</th>
       <td><p>Data table containing the statistically model trends in
 current, former and never smoking
-The output of trend_fit().</p></td>
+The output of <code><a href='trend_fit.html'>trend_fit()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>survivorship_dataq</th>
+      <th>survivorship_data</th>
       <td><p>Data table containing estimates of cohort survivorship by
-age, sex and IMD quintile. The output of prep_surv().</p></td>
+age, sex and IMD quintile. The output of <code><a href='prep_surv.html'>prep_surv()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>mortality_dataq</th>
+      <th>mortality_data</th>
       <td><p>Data table containing the estimated age-specific
 probabilities of death by smoking status.
-The output of smoke_surv().</p></td>
+The output of <code><a href='smoke_surv.html'>smoke_surv()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>relapse_dataq</th>
+      <th>relapse_data</th>
       <td><p>Data table containing estimates of long-term relapse probabilities.
-The output of prep_relapse().</p></td>
+The output of <code><a href='prep_relapse.html'>prep_relapse()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>initiation_dataq</th>
+      <th>initiation_data</th>
       <td><p>Data table containing estimates of initiation probabilities
 by age, cohort, sex and IMD quintile.
-The output of init_adj().</p></td>
+The output of <code><a href='init_adj.html'>init_adj()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>lowest_yearq</th>
-      <td><p>integer. Oldest year of data available.
-This is 2001 for England and 2008 for Scotland. Default is 2001.</p></td>
+      <th>min_age</th>
+      <td><p>Integer - the youngest age considered.</p></td>
     </tr>
     <tr>
-      <th>highest_yearq</th>
-      <td><p>integer. Newest year of data available.
-This is 2016 for England and 2018 for Scotland. Default is 2008.</p></td>
+      <th>max_age</th>
+      <td><p>Integer - the oldest age considered.</p></td>
     </tr>
     <tr>
-      <th>youngest_yearq</th>
-      <td><p>integer. Youngest age in the data.
-This is 11 for England, and 16 for Scotland. Default is 11.</p></td>
+      <th>min_year</th>
+      <td><p>Integer - the earliest year of observed data.</p></td>
+    </tr>
+    <tr>
+      <th>max_year</th>
+      <td><p>Integer - the latest year of observed data.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a data table containing the estimated quit probabilities.</p>
+    <p>Returns a data.table containing the estimated quit probabilities.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

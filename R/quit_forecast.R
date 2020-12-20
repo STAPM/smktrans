@@ -16,7 +16,7 @@
 #' rates of proportional change ("continuing")
 #' or to keep the forecast variable constant at its last observed value ("stationary").
 #' @param cont_limit Integer - the year at which a continuing forecast becomes constant.
-#' @param oldest_year Integer - the oldest year of data we have. Default is set to 2001 for England. 
+#' @param oldest_year Integer - the oldest year of data we have. Default is set to 2003 for England. 
 #' @param youngest_age Integer - the youngest age we have in the data. 
 #' Default is set to 11 for England.
 #' @param oldest_age Integer - the oldest age we have in the data - set to 88 for quitting and relapse 
@@ -50,7 +50,7 @@ quit_forecast <- function(
   forecast_var,
   forecast_type = c("continuing", "stationary"),
   cont_limit = NULL,
-  oldest_year = 2001,
+  oldest_year = 2003,
   youngest_age = 11,
   oldest_age = 88,
   first_year = 2010,
@@ -115,15 +115,6 @@ quit_forecast <- function(
       
       qdat[is.na(qdat)] <- 0
       qdat[qdat == 1] <- 0
-
-      fill.zero <- function(x, method = "constant") {
-        tt <- 1:length(x)
-        zeros <- abs(x) < 1e-9
-        xx <- x[!zeros]
-        tt <- tt[!zeros]
-        x <- stats::approx(tt, xx, 1:length(x), method = method, f = 0.5, rule = 2)
-      return(x$y)
-      }
 
       for(i in 1:n) {
         qdat[i,] <- fill.zero(qdat[i,])
@@ -212,8 +203,15 @@ return(data_proj[])
 }
 
 
-
-
+#' @export
+fill.zero <- function(x, method = "constant") {
+  tt <- 1:length(x)
+  zeros <- abs(x) < 1e-9
+  xx <- x[!zeros]
+  tt <- tt[!zeros]
+  x <- stats::approx(tt, xx, 1:length(x), method = method, f = 0.5, rule = 2)
+  return(x$y)
+}
 
 
 

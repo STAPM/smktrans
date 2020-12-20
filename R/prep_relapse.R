@@ -19,8 +19,8 @@
 #' @param hawkins_relapse Data table containing a tidied version of the estimates of
 #' long-term smoking relapse probability
 #'  from \insertCite{hawkins2010long;textual}{smktrans}.
-#' @param lowest_year integer - lowest year of data available (for England this is 2001
-#' and for Scotland this is 2008). Default is set to 2001, for HSE.
+#' @param lowest_year integer - lowest year of data available (for England this is 2003
+#' and for Scotland this is 2008). Default is set to 2003, for HSE.
 #' @param highest_year integer - highest year of data available.
 #' @param youngest_age integer - youngest age in data (for England we use 11, but for
 #' Scotland this is 16).
@@ -48,7 +48,7 @@
 prep_relapse <- function(
   data,
   hawkins_relapse = smktrans::hawkins_relapse,
-  lowest_year = 2001,
+  lowest_year = 2003,
   highest_year = 2018,
   youngest_age = 11
 ) {

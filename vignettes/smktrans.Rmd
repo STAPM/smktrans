@@ -15,7 +15,7 @@ At the moment, these workflows are accessible only to the project team. To acces
 
 The workflows are listed below:  
 
-- [English national smoking transition probabilities](https://gitlab.com/stapm/projects/smoking-model-development/smoking_transitions_paper)
+- [English national smoking transition probabilities](https://gitlab.com/stapm/projects/smoking-model-development/smoking_transitions_paper). This repo is used for testing and validating the method to estimate the smoking transition probabilities.   
 
 
 

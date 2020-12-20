@@ -2,12 +2,16 @@
 % Please edit documentation in R/smoke_surv.R
 \name{smoke_surv}
 \alias{smoke_surv}
-\title{Estimate age-specific probabilities of death by smoking status \lifecycle{maturing}}
+\title{Estimate age-specific probabilities of death by smoking status \lifecycle{stable}}
 \usage{
 smoke_surv(
   data,
-  diseases = unique(tobalcepi::tobacco_relative_risks$condition),
-  mx_data
+  diseases = tobalcepi::tob_disease_names,
+  mx_data,
+  min_age = 11,
+  max_age = 89,
+  min_year = 2003,
+  max_year = 2018
 )
 }
 \arguments{
@@ -18,6 +22,14 @@ IMD quintile and smoking status.}
 
 \item{mx_data}{Data table containing the cause-specific rates of death 
 from smoking related diseases.}
+
+\item{min_age}{Integer - the youngest age considered.}
+
+\item{max_age}{Integer - the oldest age considered.}
+
+\item{min_year}{Integer - the earliest year of observed data.}
+
+\item{max_year}{Integer - the latest year of observed data.}
 }
 \value{
 Returns two data tables containing the age-specific 
@@ -39,8 +51,8 @@ of how risk declines by the time since some has quit.
 
 test_data <- smoke_surv(
   data = hse_data,
-  diseases  = unique(tobalcepi::tobacco_relative_risks$condition),
-  mx_data
+  diseases  = tobalcepi::tob_disease_names,
+  mx_data = tob_mort_data_cause
 )
 
 }

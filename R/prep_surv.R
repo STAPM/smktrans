@@ -1,31 +1,39 @@
 
-#' Estimate socioeconomic differences in cohort survivorship \lifecycle{maturing}
+#' Estimate socioeconomic differences in cohort survivorship \lifecycle{stable}
 #'
 #' Takes mortality rates from birth since 1922 and combines
 #' them with socioeconomically stratified mortality
-#' data from 2001 to produce an estimate of the socioeconomic differences in survivorship.
+#' data from the period under investigation to produce an estimate of the socioeconomic differences in cohort survivorship.
 #'
 #' @param mx_data_hmd Data table containing mortality rates from 1922
 #' from the Human Mortality Database.
 #' @param mx_data_ons Data table containing socioeconomically stratified
 #' mortality rates - that we process ourselves
 #' from mortality microdata supplied by the Office for National Statistics.
+#' @template age-year
+#' 
 #' @importFrom data.table copy := setDT shift
+#' 
 #' @return Returns a data table containing the socioeconomically stratified cohort survivorship functions.
 #' Note that these data will only be stratified by IMD quintile for
 #' year ages and years covered by our ONS data.
+#' 
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' test_data <- prep_surv(
 #'   mx_data_hmd = smktrans::hmd_data,
-#'   mx_data_ons = smktrans::tob_mort_data
+#'   mx_data_ons = tob_mort_data
 #' )
 #' }
 prep_surv <- function(
   mx_data_hmd = smktrans::hmd_data,
-  mx_data_ons = smktrans::tob_mort_data
+  mx_data_ons,
+  min_age = 11,
+  max_age = 89,
+  min_year = 2003,
+  max_year = 2018
 ) {
 
   mx_data_hmd <- copy(mx_data_hmd)
@@ -49,7 +57,7 @@ prep_surv <- function(
   mx_data_hmd[ , cohort := year - age]
 
   # Select only required cohorts
-  mx_data_hmd <- mx_data_hmd[cohort >= 2001 - 89]
+  mx_data_hmd <- mx_data_hmd[cohort >= min_year - max_age]
 
   mx_data_hmd[ , `:=`(mx = NULL, qx = NULL, year = NULL)]
 
@@ -114,7 +122,7 @@ prep_surv <- function(
 
   # Tidy
   domain[ , year := cohort + age]
-  domain <- domain[age %in% 11:89 & year %in% 2001:2018]
+  domain <- domain[age %in% min_age:max_age & year %in% min_year:max_year]
   keep_vars <- c("age", "year", "cohort", "sex", "imd_quintile", "lx")
   domain <- domain[ , keep_vars, with = F]
 

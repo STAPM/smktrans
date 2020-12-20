@@ -5,7 +5,9 @@
 #' Fit a multinomial model to the distribution of people 
 #' among current, former and never smoking status
 #' and estimate the variation in trends by sex and socioeconomic conditions in terms of
-#' quintiles of the Index of Multiple Deprivation.
+#' quintiles of the Index of Multiple Deprivation. The parameterisation of the 
+#' statistical model within this function can have a strong effect on the estimated probabilities of 
+#' quitting smoking and on the trajectories of smoking prevalence that are forecast using these estimates.
 #'
 #' The explanatory variables for age and year are specified 
 #' in the form of a cubic response surface.
@@ -75,45 +77,50 @@ trend_fit <- function(
   model_data[ , year.z := (year - mu_year) / (2 * sd_year)]
 
   # Fit response surface
-
-  m_cubic <- nnet::multinom(smk.state ~
-
-    # SURFACE OVER AGE AND YEAR
-
-    # Quadratic response surface
-    age.z + year.z + I(age.z ^ 2) + I(year.z ^ 2) + age.z:year.z +
-
-    # Extension of quadratic response surface by age and year to cubic response surface
-    I(age.z ^ 3) + I(year.z ^ 3) + age.z:I(year.z ^ 2) + year.z:I(age.z ^ 2) +
-
-    # Extension to ^4 response surface
-    I(age.z ^ 4) + 
-      #I(year.z ^ 4) + age.z:I(year.z ^ 3) + year.z:I(age.z ^ 3) + 
-      #I(age.z ^ 2):I(year.z ^ 2) + I(year.z ^ 2):I(age.z ^ 2) +
-      
-    # VARIATION IN SURFACE BY SEX AND IMD QUINTILE
-
-    # Average differences by sex and imd quintile
-    sex + imd_quintile + sex:imd_quintile +
-
-    # Age interactions with sex and imd quintile (up to third order terms)
-    # including quadratic functions of age here due to strong curved age pattern of smoking
-    sex:age.z + sex:I(age.z ^ 2) +
-    imd_quintile:age.z + imd_quintile:I(age.z ^ 2) +
-    sex:imd_quintile:age.z +
-
-    # Year interactions with sex and imd quintile
-    # not including quadratic functions of year here due to fairly linear trend over study period
-    sex:year.z +
-    imd_quintile:year.z +
-    sex:imd_quintile:year.z +
-
-    # Modification of age x year interaction by sex and imd quintile
-    sex:age.z:year.z + imd_quintile:age.z:year.z,
-
-    data = model_data, weights = wt_int, maxit = max_iterations
-  )
-
+  
+  m1 <- nnet::multinom(smk.state ~ age.z + year.z, data = model_data, weights = wt_int, maxit = max_iterations)
+  
+  m2 <- update(m1, ~ . + I(age.z ^ 2) + I(year.z ^ 2) + age.z:year.z)
+  
+  m3 <- update(m2, ~ . + I(age.z ^ 3) + I(year.z ^ 3) + I(age.z ^ 2):year.z + age.z:I(year.z ^ 2))
+  
+  m4 <- update(m3, ~ . + I(age.z ^ 4))# + I(year.z ^ 4)) # limit to no further interactions
+  
+  #m5 <- update(m4, ~ . + I(age.z ^ 5))# + I(year.z ^ 5))
+  
+  m6 <- update(m4, ~ . + sex + imd_quintile + sex:imd_quintile)
+  
+  m7 <- update(m6, ~ . + age.z:sex + age.z:imd_quintile + age.z:sex:imd_quintile + 
+                 year.z:sex + year.z:imd_quintile + year.z:sex:imd_quintile)
+  
+  m8 <- update(m7, ~ . + #I(age.z ^ 2):sex + I(age.z ^ 2):imd_quintile + I(age.z ^ 2):sex:imd_quintile + 
+                 #I(year.z ^ 2):sex +  I(year.z ^ 2):imd_quintile +  I(year.z ^ 2):sex:imd_quintile + 
+                 age.z:year.z:sex + age.z:year.z:imd_quintile + age.z:year.z:sex:imd_quintile)
+  
+  #m9 <- update(m8, ~ . + I(age.z ^ 3):sex + I(age.z ^ 3):imd_quintile + I(age.z ^ 3):sex:imd_quintile)# + 
+                 #I(year.z ^ 3):sex + I(year.z ^ 3):imd_quintile + I(year.z ^ 3):sex:imd_quintile + 
+                 #I(age.z ^ 2):year.z:sex + I(age.z ^ 2):year.z:imd_quintile + I(age.z ^ 2):year.z:sex:imd_quintile + 
+                 #age.z:I(year.z ^ 2):sex + age.z:I(year.z ^ 2):imd_quintile + age.z:I(year.z ^ 2):sex:imd_quintile)
+  
+  #m10 <- update(m9, ~ . + I(age.z ^ 4):sex + I(age.z ^ 4):imd_quintile + I(age.z ^ 4):sex:imd_quintile + 
+  #                I(year.z ^ 4):sex + I(year.z ^ 4):imd_quintile + I(year.z ^ 4):sex:imd_quintile)
+  
+  #m11 <- update(m10, ~ . + I(age.z ^ 5):sex + I(age.z ^ 5):imd_quintile + I(age.z ^ 5):sex:imd_quintile + 
+  #                I(year.z ^ 5):sex + I(year.z ^ 5):imd_quintile + I(year.z ^ 5):sex:imd_quintile)
+  
+  #m11 <- update(m10, ~ . - I(year.z ^ 5) - I(year.z ^ 4):sex:imd_quintile)
+  
+  #AIC(m1)
+  #AIC(m2)
+  #AIC(m3)
+  #AIC(m4)
+  #AIC(m5)
+  #AIC(m6)
+  #AIC(m7)
+  #AIC(m8)
+  #AIC(m9)
+  #AIC(m10)
+  #AIC(m11)
 
   # Grab predicted values from the model
   newdata <- data.frame(expand.grid(
@@ -131,84 +138,13 @@ trend_fit <- function(
 
   newdata1 <- newdata[ , c("age.z", "year.z", "sex", "imd_quintile")]
 
-  newdata <- cbind(newdata, stats::predict(m_cubic, newdata = newdata1, "probs"))
+  newdata <- cbind(newdata, stats::predict(m8, newdata = newdata1, "probs"))
 
   newdata[ , age.z := NULL]
   newdata[ , year.z := NULL]
 
 return(newdata[])
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

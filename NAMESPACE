@@ -2,6 +2,7 @@
 
 export(bin_var)
 export(ever_smoke)
+export(fill.zero)
 export(init_adj)
 export(init_est)
 export(p_dense)

@@ -8,8 +8,8 @@ init_adj(
   init_data,
   ever_smoke_data,
   ref_age = 30,
-  cohorts = 1971:2020,
-  period_start = 2001,
+  cohorts = 1973:2020,
+  period_start = 2003,
   period_end = 2018
 )
 }
@@ -21,9 +21,11 @@ ever-smoking by age, sex and IMD quintile.}
 
 \item{ref_age}{Integer - the index age for calibration}
 
-\item{cohorts}{Integer vector - the cohorts to be adjusted}
+\item{cohorts}{Integer vector - the cohorts to be adjusted. 
+The min cohort might sensibly be period_start - ref_age, 
+and the max cohort might be the baseline year of the model e.g. 2020.}
 
-\item{period_start}{Integer - the first year of data}
+\item{period_start}{Integer - the first year of data (England - 2003, Scotland - 2008)}
 
 \item{period_end}{Integer - the last year of data}
 }

@@ -49,7 +49,7 @@
 <meta property="og:title" content="Estimate socioeconomic differences in cohort survivorship  — prep_surv" />
 <meta property="og:description" content="Takes mortality rates from birth since 1922 and combines
 them with socioeconomically stratified mortality
-data from 2001 to produce an estimate of the socioeconomic differences in survivorship." />
+data from the period under investigation to produce an estimate of the socioeconomic differences in cohort survivorship." />
 <meta property="og:image" content="https://stapm.gitlab.io/r-packages/smktrans/logo.png" />
 
 
@@ -92,7 +92,7 @@ data from 2001 to produce an estimate of the socioeconomic differences in surviv
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">smktrans</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@ data from 2001 to produce an estimate of the socioeconomic differences in surviv
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate socioeconomic differences in cohort survivorship <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
+    <h1>Estimate socioeconomic differences in cohort survivorship <a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></h1>
     
     <div class="hidden name"><code>prep_surv.Rd</code></div>
     </div>
@@ -142,12 +142,16 @@ data from 2001 to produce an estimate of the socioeconomic differences in surviv
     <div class="ref-description">
     <p>Takes mortality rates from birth since 1922 and combines
 them with socioeconomically stratified mortality
-data from 2001 to produce an estimate of the socioeconomic differences in survivorship.</p>
+data from the period under investigation to produce an estimate of the socioeconomic differences in cohort survivorship.</p>
     </div>
 
     <pre class="usage"><span class='fu'>prep_surv</span><span class='op'>(</span>
   mx_data_hmd <span class='op'>=</span> <span class='fu'>smktrans</span><span class='fu'>::</span><span class='va'><a href='hmd_data.html'>hmd_data</a></span>,
-  mx_data_ons <span class='op'>=</span> <span class='fu'>smktrans</span><span class='fu'>::</span><span class='va'>tob_mort_data</span>
+  <span class='va'>mx_data_ons</span>,
+  min_age <span class='op'>=</span> <span class='fl'>11</span>,
+  max_age <span class='op'>=</span> <span class='fl'>89</span>,
+  min_year <span class='op'>=</span> <span class='fl'>2003</span>,
+  max_year <span class='op'>=</span> <span class='fl'>2018</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -164,6 +168,22 @@ from the Human Mortality Database.</p></td>
 mortality rates - that we process ourselves
 from mortality microdata supplied by the Office for National Statistics.</p></td>
     </tr>
+    <tr>
+      <th>min_age</th>
+      <td><p>Integer - the youngest age considered.</p></td>
+    </tr>
+    <tr>
+      <th>max_age</th>
+      <td><p>Integer - the oldest age considered.</p></td>
+    </tr>
+    <tr>
+      <th>min_year</th>
+      <td><p>Integer - the earliest year of observed data.</p></td>
+    </tr>
+    <tr>
+      <th>max_year</th>
+      <td><p>Integer - the latest year of observed data.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -176,7 +196,7 @@ year ages and years covered by our ONS data.</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='va'>test_data</span> <span class='op'>&lt;-</span> <span class='fu'>prep_surv</span><span class='op'>(</span>
   mx_data_hmd <span class='op'>=</span> <span class='fu'>smktrans</span><span class='fu'>::</span><span class='va'><a href='hmd_data.html'>hmd_data</a></span>,
-  mx_data_ons <span class='op'>=</span> <span class='fu'>smktrans</span><span class='fu'>::</span><span class='va'>tob_mort_data</span>
+  mx_data_ons <span class='op'>=</span> <span class='va'>tob_mort_data</span>
 <span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>

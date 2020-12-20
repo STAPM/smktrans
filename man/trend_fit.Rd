@@ -42,7 +42,9 @@ Returns a data table containing the fitted values by age, year, sex and IMD quin
 Fit a multinomial model to the distribution of people 
 among current, former and never smoking status
 and estimate the variation in trends by sex and socioeconomic conditions in terms of
-quintiles of the Index of Multiple Deprivation.
+quintiles of the Index of Multiple Deprivation. The parameterisation of the 
+statistical model within this function can have a strong effect on the estimated probabilities of 
+quitting smoking and on the trajectories of smoking prevalence that are forecast using these estimates.
 }
 \details{
 The explanatory variables for age and year are specified 

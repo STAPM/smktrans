@@ -9,7 +9,7 @@ quit_forecast(
   forecast_var,
   forecast_type = c("continuing", "stationary"),
   cont_limit = NULL,
-  oldest_year = 2001,
+  oldest_year = 2003,
   youngest_age = 11,
   oldest_age = 88,
   first_year = 2010,
@@ -28,7 +28,7 @@ or to keep the forecast variable constant at its last observed value ("stationar
 
 \item{cont_limit}{Integer - the year at which a continuing forecast becomes constant.}
 
-\item{oldest_year}{Integer - the oldest year of data we have. Default is set to 2001 for England.}
+\item{oldest_year}{Integer - the oldest year of data we have. Default is set to 2003 for England.}
 
 \item{youngest_age}{Integer - the youngest age we have in the data. 
 Default is set to 11 for England.}

@@ -1,5 +1,5 @@
 
-#' Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation \lifecycle{maturing}
+#' Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation \lifecycle{stable}
 #'
 #' Converts the cumulative density function to the probability density function,
 #' assuming an interval of 1.
@@ -10,13 +10,16 @@
 #' containing the cumulative probabilities.
 #' @param strat_vars Character vector - the variables by which to stratify the calculation.
 #' @param lowest_year integer - lowest year of data available 
-#' (for England this is 2001 and for Scotland this is 2008). 
-#' Default is set to 2001, for HSE.
+#' (for England this is 2003 and for Scotland this is 2008). 
+#' Default is set to 2003, for HSE.
 #' @param max_year integer - the latest year considered in the data + forecast
+#' 
 #' @importFrom data.table shift := copy setnames rbindlist
+#' 
 #' @return Returns an updated version of data with a new variable 
 #' for the age-specific probabilities of
 #' smoking initiation.
+#' 
 #' @export
 #'
 #' @examples
@@ -32,7 +35,7 @@ p_dense <- function(
   data,
   cum_func_var,
   strat_vars = c("cohort", "sex", "imd_quintile"),
-  lowest_year = 2001,
+  lowest_year = 2003,
   max_year = 2100
 ) {
   

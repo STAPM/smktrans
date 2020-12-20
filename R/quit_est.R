@@ -4,30 +4,25 @@
 #' Combines the various inputs together to estimate smoking quit
 #' probabilities according to the formula given.
 #'
-#' @param dataq Data table containing individual-level survey data over multiple years.
-#' @param trend_dataq Data table containing the statistically model trends in
+#' @param data Data table containing individual-level survey data over multiple years.
+#' @param trend_data Data table containing the statistically model trends in
 #' current, former and never smoking
-#' The output of trend_fit().
-#' @param survivorship_dataq Data table containing estimates of cohort survivorship by
-#' age, sex and IMD quintile. The output of prep_surv().
-#' @param mortality_dataq Data table containing the estimated age-specific
+#' The output of \code{trend_fit()}.
+#' @param survivorship_data Data table containing estimates of cohort survivorship by
+#' age, sex and IMD quintile. The output of \code{prep_surv()}.
+#' @param mortality_data Data table containing the estimated age-specific
 #' probabilities of death by smoking status.
-#' The output of smoke_surv().
-#' @param relapse_dataq Data table containing estimates of long-term relapse probabilities.
-#' The output of prep_relapse().
-#' @param initiation_dataq Data table containing estimates of initiation probabilities
+#' The output of \code{smoke_surv()}.
+#' @param relapse_data Data table containing estimates of long-term relapse probabilities.
+#' The output of \code{prep_relapse()}.
+#' @param initiation_data Data table containing estimates of initiation probabilities
 #' by age, cohort, sex and IMD quintile.
-#' The output of init_adj().
-#' @param lowest_yearq integer. Oldest year of data available.
-#' This is 2001 for England and 2008 for Scotland. Default is 2001.
-#' @param highest_yearq integer. Newest year of data available.
-#' This is 2016 for England and 2018 for Scotland. Default is 2008.
-#' @param youngest_yearq integer. Youngest age in the data.
-#' This is 11 for England, and 16 for Scotland. Default is 11.
+#' The output of \code{init_adj()}.
+#' @template age-year
 #'
-#' @importFrom data.table setDT := setnames
+#' @importFrom data.table setDT := setnames shift
 #'
-#' @return Returns a data table containing the estimated quit probabilities.
+#' @return Returns a data.table containing the estimated quit probabilities.
 #' @export
 #'
 #' @examples
@@ -112,15 +107,16 @@
 #' }
 #'
 quit_est <- function(
-  dataq,
-  trend_dataq,
-  survivorship_dataq,
-  mortality_dataq,
-  relapse_dataq,
-  initiation_dataq,
-  lowest_yearq = 2001,
-  highest_yearq = 2018,
-  youngest_yearq = 11
+  data,
+  trend_data,
+  survivorship_data,
+  mortality_data,
+  relapse_data,
+  initiation_data,
+  min_age = 11,
+  max_age = 89,
+  min_year = 2003,
+  max_year = 2018
 ) {
 
   #########################################
@@ -128,8 +124,8 @@ quit_est <- function(
 
   master_data <- data.frame(expand.grid(
     sex = c("Male", "Female"),
-    age = youngest_yearq:89,
-    year = lowest_yearq:highest_yearq,
+    age = min_age:max_age,
+    year = min_year:max_year,
     imd_quintile = c("1_least_deprived", "2", "3", "4", "5_most_deprived")
   ))
   setDT(master_data)
@@ -141,7 +137,7 @@ quit_est <- function(
   # Add survivorship
   master_data <- merge(
     master_data,
-    survivorship_dataq,
+    survivorship_data,
     by = c("sex", "age", "year", "imd_quintile"),
     all.x = T, all.y = F, sort = F)
 
@@ -151,7 +147,7 @@ quit_est <- function(
   # Add proportion of people at each smoker state
   master_data <- merge(
     master_data,
-    trend_dataq, #[ , cohort := NULL],
+    trend_data, #[ , cohort := NULL],
     by = c("sex", "age", "year", "imd_quintile"),
     all.x = T, all.y = F, sort = F)
 
@@ -164,7 +160,7 @@ quit_est <- function(
   # Add probability of survival by smoking status
   master_data <- merge(
     master_data,
-    mortality_dataq,
+    mortality_data,
     by = c("sex", "age", "year", "imd_quintile"),
     all.x = T, all.y = F, sort = F)
 
@@ -177,7 +173,7 @@ quit_est <- function(
   # Add probability of relapse for former smokers
   master_data <- merge(
     master_data,
-    relapse_dataq,
+    relapse_data,
     by = c("age", "sex", "year", "imd_quintile"),
     all.x = T, all.y = F, sort = F)
 
@@ -188,7 +184,7 @@ quit_est <- function(
 
   master_data <- merge(
     master_data,
-    initiation_dataq[ , c("age", "year", "sex", "imd_quintile", "p_start")],
+    initiation_data[ , c("age", "year", "sex", "imd_quintile", "p_start")],
     by = c("sex", "age", "year", "imd_quintile"),
     all.x = T, all.y = F, sort = F)
 
@@ -203,24 +199,24 @@ quit_est <- function(
 
   master_data[ , cohort := year - age]
 
-  master_data[ , lx1 := data.table::shift(lx, type = "lead"), by = c("cohort", "sex", "imd_quintile")]
-  master_data[ , current1 := data.table::shift(current, type = "lead"), by = c("cohort", "sex", "imd_quintile")]
+  master_data[ , lx1 := shift(lx, type = "lead"), by = c("cohort", "sex", "imd_quintile")]
+  master_data[ , current1 := shift(current, type = "lead"), by = c("cohort", "sex", "imd_quintile")]
 
   master_data[ , c1 := (lx1 * current1) / (lx * current * current_px)]
   master_data[ , c2 := (1 / (current * current_px)) * (former * former_px * p_relapse + never * never_px * p_start)]
 
   master_data[ , quit_prob := 1 - c1 + c2]
 
-  master_data[age == 89, quit_prob := 0]
+  master_data[age == max_age, quit_prob := 0]
 
   master_data[quit_prob < 0 | is.na(quit_prob), quit_prob := 0]
   master_data[quit_prob > 1 | is.na(quit_prob), quit_prob := 1]
 
-  # no estimated quit probs for 2018
-  master_data <- master_data[year <= 2017]
+  # no estimated quit probs for the last year of data
+  master_data <- master_data[year < max_year]
 
   # Keep only required variables
-  master_data <- master_data[age < 89, c("sex", "age", "year", "imd_quintile", "quit_prob")]
+  master_data <- master_data[age < max_age, c("sex", "age", "year", "imd_quintile", "quit_prob")]
 
   setnames(master_data, "quit_prob", "p_quit")
 

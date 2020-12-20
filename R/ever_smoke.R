@@ -23,13 +23,21 @@
 #' @param model Character - whether running the code using HSE or SHeS data.
 #' Fits a different model to trends depending
 #' on dataset using.
+#' @param min_age Integer - the youngest age for which a prediction of the 
+#' progression of ever-smoking in a cohort should be generated. Defaults to 15 years.
+#' @param min_year Integer - the first year of survey data. For England this will be 2003 
+#' (the year in which non-reponse weights were first introduced into the HSE), 
+#' and for Scotland this will be 2008.
+#' 
 #' @importFrom data.table := setDT setnames
 #' @importFrom survey svydesign svyby svymean svyglm
+#' 
 #' @return Returns two data tables:
 #' \itemize{
 #' \item "data_points", the proportions of ever-smokers at age 25 observed in the survey data;
 #' \item "predicted_values", the model predictions up to the time horizon.
 #' }
+#' 
 #' @export
 #'
 #' @examples
@@ -44,7 +52,9 @@ ever_smoke <- function(
   data,
   time_horizon = 2100,
   num_bins = 7,
-  model = "England"
+  model = "England",
+  min_age = 15,
+  min_year = 2003
 ) {
 
   cat("setting up data...\r")
@@ -120,7 +130,7 @@ ever_smoke <- function(
   }
 
   # Grab the model predictions
-  newdata <- data.frame(expand.grid(year_bin = 1986:time_horizon,
+  newdata <- data.frame(expand.grid(year_bin = (min_year - min_age):time_horizon,
     sex = c("Male", "Female"), imd_quintile = unique(data$imd_quintile)))
 
   newdata$fitted_trends <- as.numeric(stats::predict(m1, type = "response", newdata = newdata))

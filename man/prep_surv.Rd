@@ -2,11 +2,15 @@
 % Please edit documentation in R/prep_surv.R
 \name{prep_surv}
 \alias{prep_surv}
-\title{Estimate socioeconomic differences in cohort survivorship \lifecycle{maturing}}
+\title{Estimate socioeconomic differences in cohort survivorship \lifecycle{stable}}
 \usage{
 prep_surv(
   mx_data_hmd = smktrans::hmd_data,
-  mx_data_ons = smktrans::tob_mort_data
+  mx_data_ons,
+  min_age = 11,
+  max_age = 89,
+  min_year = 2003,
+  max_year = 2018
 )
 }
 \arguments{
@@ -16,6 +20,14 @@ from the Human Mortality Database.}
 \item{mx_data_ons}{Data table containing socioeconomically stratified
 mortality rates - that we process ourselves
 from mortality microdata supplied by the Office for National Statistics.}
+
+\item{min_age}{Integer - the youngest age considered.}
+
+\item{max_age}{Integer - the oldest age considered.}
+
+\item{min_year}{Integer - the earliest year of observed data.}
+
+\item{max_year}{Integer - the latest year of observed data.}
 }
 \value{
 Returns a data table containing the socioeconomically stratified cohort survivorship functions.
@@ -25,13 +37,13 @@ year ages and years covered by our ONS data.
 \description{
 Takes mortality rates from birth since 1922 and combines
 them with socioeconomically stratified mortality
-data from 2001 to produce an estimate of the socioeconomic differences in survivorship.
+data from the period under investigation to produce an estimate of the socioeconomic differences in cohort survivorship.
 }
 \examples{
 \dontrun{
 test_data <- prep_surv(
   mx_data_hmd = smktrans::hmd_data,
-  mx_data_ons = smktrans::tob_mort_data
+  mx_data_ons = tob_mort_data
 )
 }
 }

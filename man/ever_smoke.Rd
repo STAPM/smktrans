@@ -4,7 +4,14 @@
 \alias{ever_smoke}
 \title{Summarise and project trends in ever-smoking  \lifecycle{maturing}}
 \usage{
-ever_smoke(data, time_horizon = 2100, num_bins = 7, model = "England")
+ever_smoke(
+  data,
+  time_horizon = 2100,
+  num_bins = 7,
+  model = "England",
+  min_age = 15,
+  min_year = 2003
+)
 }
 \arguments{
 \item{data}{Data table of individual characteristics.}
@@ -17,6 +24,13 @@ predictions for ever-smoking at the index age.}
 \item{model}{Character - whether running the code using HSE or SHeS data.
 Fits a different model to trends depending
 on dataset using.}
+
+\item{min_age}{Integer - the youngest age for which a prediction of the 
+progression of ever-smoking in a cohort should be generated. Defaults to 15 years.}
+
+\item{min_year}{Integer - the first year of survey data. For England this will be 2003 
+(the year in which non-reponse weights were first introduced into the HSE), 
+and for Scotland this will be 2008.}
 }
 \value{
 Returns two data tables:
