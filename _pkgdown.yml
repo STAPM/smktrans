@@ -36,10 +36,6 @@ navbar:
 
 
 articles:
-- title: Methodology reports
-  contents:
-  - smoking_transition_probabilities_modelling_report
-
 - title: Code vignettes
   contents:
   - clean_hse_data

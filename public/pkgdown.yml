@@ -5,8 +5,7 @@ articles:
   clean_hse_data: clean_hse_data.html
   smk_trans_prob_estimation: smk_trans_prob_estimation.html
   smktrans: smktrans.html
-  smoking_transition_probabilities_modelling_report: smoking_transition_probabilities_modelling_report.pdf
-last_built: 2020-12-20T09:43Z
+last_built: 2020-12-21T11:33Z
 urls:
   reference: https://stapm.gitlab.io/r-packages/smktrans/reference
   article: https://stapm.gitlab.io/r-packages/smktrans/articles
