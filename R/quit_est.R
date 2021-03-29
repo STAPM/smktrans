@@ -4,7 +4,6 @@
 #' Combines the various inputs together to estimate smoking quit
 #' probabilities according to the formula given.
 #'
-#' @param data Data table containing individual-level survey data over multiple years.
 #' @param trend_data Data table containing the statistically model trends in
 #' current, former and never smoking
 #' The output of \code{trend_fit()}.
@@ -96,18 +95,16 @@
 #'
 #' # Estimate the quit probabilities
 #' quit_data <- quit_est(
-#' dataq = copy(smoke.trans::hse_data),
-#' trend_dataq = copy(trend_data),
-#' survivorship_dataq = copy(survivorship_data),
-#' mortality_dataq = copy(mortality_data$data_for_quit_ests),
-#' relapse_dataq = copy(relapse_data$relapse_by_age_imd),
-#' initiation_dataq = copy(init_data_final)
+#'   trend_data = copy(trend_data),
+#'   survivorship_data = copy(survivorship_data),
+#'   mortality_data = copy(mortality_data$data_for_quit_ests),
+#'   relapse_data = copy(relapse_data$relapse_by_age_imd),
+#'   initiation_data = copy(init_data_final)
 #' )
 #'
 #' }
 #'
 quit_est <- function(
-  data,
   trend_data,
   survivorship_data,
   mortality_data,
@@ -189,7 +186,7 @@ quit_est <- function(
     all.x = T, all.y = F, sort = F)
 
   # Assume no new initiation after age 30
-  master_data[age > 30, p_start := 0]
+  master_data[age > max(initiation_data$age), p_start := 0]
 
   testthat::expect_equal(kn, nrow(master_data[!is.na(p_start)]))
 

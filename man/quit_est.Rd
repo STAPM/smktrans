@@ -5,7 +5,6 @@
 \title{Estimate smoking quit probabilities \lifecycle{maturing}}
 \usage{
 quit_est(
-  data,
   trend_data,
   survivorship_data,
   mortality_data,
@@ -18,8 +17,6 @@ quit_est(
 )
 }
 \arguments{
-\item{data}{Data table containing individual-level survey data over multiple years.}
-
 \item{trend_data}{Data table containing the statistically model trends in
 current, former and never smoking
 The output of \code{trend_fit()}.}
@@ -124,12 +121,11 @@ relapse_data <- smktrans::prep_relapse(
 
 # Estimate the quit probabilities
 quit_data <- quit_est(
-dataq = copy(smoke.trans::hse_data),
-trend_dataq = copy(trend_data),
-survivorship_dataq = copy(survivorship_data),
-mortality_dataq = copy(mortality_data$data_for_quit_ests),
-relapse_dataq = copy(relapse_data$relapse_by_age_imd),
-initiation_dataq = copy(init_data_final)
+  trend_data = copy(trend_data),
+  survivorship_data = copy(survivorship_data),
+  mortality_data = copy(mortality_data$data_for_quit_ests),
+  relapse_data = copy(relapse_data$relapse_by_age_imd),
+  initiation_data = copy(init_data_final)
 )
 
 }
