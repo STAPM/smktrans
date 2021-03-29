@@ -15,9 +15,11 @@ At the moment, these workflows are accessible only to the project team. To acces
 
 The workflows are listed below:  
 
-- [English national smoking transition probabilities](https://gitlab.com/stapm/projects/smoking-model-development/smoking_transitions_paper). This repo is used for testing and validating the method to estimate the smoking transition probabilities.   
+- [English national smoking transition probabilities](https://gitlab.com/stapm/projects/smoking-model-development/smoking_transitions_paper): main development repo for testing and validating the method to estimate the smoking transition probabilities.    
 
+- [Forecast of future smoking trends - Royal College of Physican's report 2021](https://gitlab.com/stapm/projects/RCP_smoking_trends): 'src/20_estimate_smoking_transition_probabilities.R'.
 
+- [Smoking transition probability inputs to tax policy modelling](https://gitlab.com/stapm/example-workflows/tax_policy_modelling): the entire workflow is implemented in the 'build inputs' folder, with an associated presentation.     
 
 
 

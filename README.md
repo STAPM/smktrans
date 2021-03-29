@@ -37,9 +37,9 @@ The **inputs** are:
 3.  Estimates of smoking related disease risk and mortality rates.
 
 The **processes** applied by the functions in `smktrans` implement
-calculations in the accompanying research paper. They estimate and
-forecast the transition probabilities to get them into a form that can
-be used in a model that simulated the population dynamics of smoking.
+calculations to estimate and forecast the transition probabilities to
+get them into a form that can be used in a model that simulated the
+population dynamics of smoking.
 
 The **output** of these processes are the probabilities of smoking
 initiation, quitting and relapse, stratified by age, period, sex and
@@ -82,9 +82,6 @@ syntax.
 ``` r
 # Load the package
 library(smktrans)
-
-# Other useful packages
-library(ggplot2) # for plotting
 ```
 
 ## Citation

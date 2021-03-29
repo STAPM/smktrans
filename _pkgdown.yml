@@ -38,7 +38,6 @@ navbar:
 articles:
 - title: Code vignettes
   contents:
-  - clean_hse_data
   - smk_trans_prob_estimation
 
 reference:

@@ -96,7 +96,7 @@
 
     
     
-<p>This vignettes builds on our methodology report by explaining how to use the functions within the <code>smktrans</code> R package to produce estimates of the probabilities of smoking initiation and quit in England using data from the Health Survey for England. See <code><a href="../articles/clean_hse_data.html">vignette("clean_hse_data")</a></code> for an example of the code used to prepare the HSE data for use with these functions.</p>
+<p>This vignettes builds on our <a href="https://stapm.gitlab.io/projects/smoking-model-development/smoking_transitions_paper/smoking_transition_probabilities_modelling_report.pdf">methodology report</a> by explaining how to use the functions within the <code>smktrans</code> R package to produce estimates of the probabilities of smoking initiation and quit in England using data from the Health Survey for England.</p>
 <div id="smoking-initiation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#smoking-initiation" class="anchor"></a>Smoking initiation</h2>
@@ -128,14 +128,14 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Adjust and forecast</span>
 <span class="va">init_data_adj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/init_adj.html">init_adj</a></span><span class="op">(</span>
-  init_data <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html">copy</a></span><span class="op">(</span><span class="va">init_data_raw</span><span class="op">)</span>,
-  ever_smoke_data <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html">copy</a></span><span class="op">(</span><span class="va">ever_smoke_data</span><span class="op">$</span><span class="va">predicted_values</span><span class="op">)</span>,
+  init_data <span class="op">=</span> <span class="fu">copy</span><span class="op">(</span><span class="va">init_data_raw</span><span class="op">)</span>,
+  ever_smoke_data <span class="op">=</span> <span class="fu">copy</span><span class="op">(</span><span class="va">ever_smoke_data</span><span class="op">$</span><span class="va">predicted_values</span><span class="op">)</span>,
   ref_age <span class="op">=</span> <span class="fl">30</span>,
   cohorts <span class="op">=</span> <span class="fl">1971</span><span class="op">:</span><span class="fl">2100</span>,
   period_start <span class="op">=</span> <span class="fl">2001</span>, period_end <span class="op">=</span> <span class="fl">2016</span><span class="op">)</span></code></pre></div>
 <p>Finally, we use the function <code><a href="../reference/p_dense.html">smktrans::p_dense()</a></code> to convert the probabilities of ever-smoking (the cumulative density function) into the probabilities of initiating smoking at each age.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">smk_init_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/p_dense.html">p_dense</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html">copy</a></span><span class="op">(</span><span class="va">init_data_adj</span><span class="op">)</span>, cum_func_var <span class="op">=</span> <span class="st">"p_ever_smoker_adj"</span>,
+<code class="sourceCode R"><span class="va">smk_init_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/p_dense.html">p_dense</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu">copy</span><span class="op">(</span><span class="va">init_data_adj</span><span class="op">)</span>, cum_func_var <span class="op">=</span> <span class="st">"p_ever_smoker_adj"</span>,
                      strat_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cohort"</span>, <span class="st">"sex"</span>, <span class="st">"imd_quintile"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>For our modelling of smoking dynamics, we want initiation probabilities for ages up to 30 years (after which we assume no new initiation) for each period modelled from 2001 onwards.</p>
 </div>
@@ -226,7 +226,7 @@
 <code class="sourceCode R"><span class="co"># Estimate age-specific probabilities of death by smoking status</span>
 <span class="va">mortality_data</span> <span class="op">&lt;-</span> <span class="fu">smktrans</span><span class="fu">::</span><span class="fu"><a href="../reference/smoke_surv.html">smoke_surv</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">hse_data</span>,
-  diseases  <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="fu">tobalcepi</span><span class="fu">::</span><span class="va"><a href="https://stapm.gitlab.io/r-packages/tobalcepi//reference/tobacco_relative_risks.html">tobacco_relative_risks</a></span><span class="op">$</span><span class="va">condition</span><span class="op">)</span>,
+  diseases  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="fu">tobalcepi</span><span class="fu">::</span><span class="va"><a href="https://stapm.gitlab.io/r-packages/tobalcepi//reference/tobacco_relative_risks.html">tobacco_relative_risks</a></span><span class="op">$</span><span class="va">condition</span><span class="op">)</span>,
   mx_data <span class="op">=</span> <span class="fu">stapmr</span><span class="fu">::</span><span class="va">tob_mort_data_cause</span>
 <span class="op">)</span></code></pre></div>
 </div>
@@ -256,7 +256,7 @@
 <p><code><a href="../reference/quit_forecast.html">smktrans::quit_forecast()</a></code> has options to adjust the reference years and time horizon. It also has an option to specify the future year at which the continuing trend in quit probabilities switches from continuing to stationary (in case you want to use this function to play with the forecast scenario, but this might be more easily done outside of the function).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">forecast_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quit_forecast.html">quit_forecast</a></span><span class="op">(</span>
-  data <span class="op">=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html">copy</a></span><span class="op">(</span><span class="va">quit_data</span><span class="op">)</span>,
+  data <span class="op">=</span> <span class="fu">copy</span><span class="op">(</span><span class="va">quit_data</span><span class="op">)</span>,
   forecast_var <span class="op">=</span> <span class="st">"p_quit"</span>,
   forecast_type <span class="op">=</span> <span class="st">"continuing"</span>, <span class="co"># continuing or stationary</span>
   cont_limit <span class="op">=</span> <span class="fl">2030</span>, <span class="co"># the year at which the forecast becomes stationary</span>
