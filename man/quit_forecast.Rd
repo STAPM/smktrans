@@ -14,7 +14,8 @@ quit_forecast(
   oldest_age = 88,
   first_year = 2010,
   jump_off_year = 2015,
-  time_horizon = 2050
+  time_horizon = 2050,
+  k_smooth_age = 3
 )
 }
 \arguments{
@@ -41,6 +42,9 @@ and 30 for initiation.}
 \item{jump_off_year}{Integer - the last year of data.}
 
 \item{time_horizon}{Integer - the last year of the forecast period.}
+
+\item{k_smooth_age}{Integer - the degree of smoothing to apply to the age pattern of change. 
+If zero, then no smoothing is applied.}
 }
 \value{
 Returns a data.table containing the observed and forecast data.
