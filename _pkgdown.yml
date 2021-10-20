@@ -36,6 +36,7 @@ navbar:
 
 
 articles:
+- title: Technical documentation
   contents:
   - smktrans
   - smk_trans_prob_estimation

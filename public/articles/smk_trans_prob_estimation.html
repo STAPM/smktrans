@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smoking transition probability estimation • smktrans</title>
+<title>Smoking state transition probability estimation • smktrans</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Smoking transition probability estimation">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Smoking state transition probability estimation">
 <meta property="og:description" content="smktrans">
 <meta property="og:image" content="https://stapm.gitlab.io/r-packages/smktrans/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -83,11 +83,14 @@
 
       
 
-      </header><script src="smk_trans_prob_estimation_files/header-attrs-2.7/header-attrs.js"></script><script src="smk_trans_prob_estimation_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="smk_trans_prob_estimation_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Smoking transition probability estimation</h1>
+      <h1 data-toc-skip>Smoking state transition probability estimation</h1>
+            <h3 class="subtitle">Vignette version number 1.1.0</h3>
+                        <h4 class="author">Duncan Gillespie, Laura Webster &amp; Alan Brennan</h4>
             
+            <h4 class="date">Last reviewed 20/10/21</h4>
       
       
       <div class="hidden name"><code>smk_trans_prob_estimation.Rmd</code></div>
@@ -96,7 +99,7 @@
 
     
     
-<p>This vignettes builds on our <a href="https://stapm.gitlab.io/projects/smoking-model-development/smoking_transitions_paper/smoking_transition_probabilities_modelling_report.pdf">methodology report</a> by explaining how to use the functions within the <code>smktrans</code> R package to produce estimates of the probabilities of smoking initiation and quit in England using data from the Health Survey for England.</p>
+<p>This vignettes builds on our <a href="https://stapm.gitlab.io/projects/smoking-model-development/stpm_tech_report/stpm-technical-report.pdf">methodology report</a> by explaining how to use the functions within the <code>smktrans</code> R package to produce estimates of the probabilities of smoking initiation and quit in England using data from the Health Survey for England.</p>
 <div id="smoking-initiation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#smoking-initiation" class="anchor"></a>Smoking initiation</h2>
@@ -113,7 +116,7 @@
 <div id="adjustment" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adjustment" class="anchor"></a>Adjustment</h3>
-<p>The main problem with these estimates is that they don’t correspond to the proportions of ever-smokers ascertained from asking respondents directly if they had ever smoked cigarettes regularly (this could be due to a range of factors e.g. recall bias or selective mortality). Developing the method used by Holford et al. <span class="citation">(<a href="#ref-holford2014patterns" role="doc-biblioref">2014</a>)</span>, we estimated and applied an adjustment factor to make these estimates correspond.</p>
+<p>The main problem with these estimates is that they don’t correspond to the proportions of ever-smokers ascertained from asking respondents directly if they had ever smoked cigarettes regularly (this could be due to a range of factors e.g. recall bias or selective mortality). Developing the method used by Holford et al. <span class="citation">(<a href="#ref-holford2014patterns" role="doc-biblioref">2014</a>)</span>, we estimated and applied an adjustment factor to make these estimates correspond.</p>
 <p>The first step in estimation of the adjustment factor is to estimate the proportions of ever-smokers at a certain index age from the question that asks directly about ever-smoking. This is done by the function <code><a href="../reference/ever_smoke.html">smktrans::ever_smoke()</a></code>. This function uses <code><a href="https://rdrr.io/pkg/survey/man/svyglm.html">survey::svyglm</a></code> to estimate the expected proportions of ever-smokers accounting for survey weights and the survey sampling design. We filter the data to only ages 25-34 years, and stratify the summary by cohort, sex and IMD quintile. The function then fits a survey weighted linear regression (quasibinomial) through the trends, which allows extrapolation to future cohorts.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Estimate the trend in the proportion of people who have ever smoked</span>
@@ -143,7 +146,7 @@
 <div id="relapse-to-smoking" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relapse-to-smoking" class="anchor"></a>Relapse to smoking</h2>
-<p>We consider the probability of relapse to smoking by former smokers from 1 to 10 years since quitting, which we call long-term relapse. To estimate these probabilities, we combine published estimates of long-term relapse from Hawkins et al. <span class="citation">(<a href="#ref-hawkins2010long" role="doc-biblioref">2010</a>)</span> with the Health Survey for England data. We do this in the function <code><a href="../reference/prep_relapse.html">smktrans::prep_relapse()</a></code>.</p>
+<p>We consider the probability of relapse to smoking by former smokers from 1 to 10 years since quitting, which we call long-term relapse. To estimate these probabilities, we combine published estimates of long-term relapse from Hawkins et al. <span class="citation">(<a href="#ref-hawkins2010long" role="doc-biblioref">2010</a>)</span> with the Health Survey for England data. We do this in the function <code><a href="../reference/prep_relapse.html">smktrans::prep_relapse()</a></code>.</p>
 <p>Hawkin’s statistical analysis adjusts for several covariates. We only adjust for a subset of these covariates as detailed below:</p>
 <ul>
 <li>age - a continuous function<br>
@@ -269,12 +272,12 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-hawkins2010long">
-<p>Hawkins, James, William Hollingworth, and Rona Campbell. 2010. “Long-Term Smoking Relapse: A Study Using the British Household Panel Survey.” <em>Nicotine &amp; Tobacco Research</em> 12 (12): 1228–35.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hawkins2010long" class="csl-entry">
+Hawkins, James, William Hollingworth, and Rona Campbell. 2010. <span>“Long-Term Smoking Relapse: A Study Using the British Household Panel Survey.”</span> <em>Nicotine &amp; Tobacco Research</em> 12 (12): 1228–35.
 </div>
-<div id="ref-holford2014patterns">
-<p>Holford, Theodore R, David T Levy, Lisa A McKay, Lauren Clarke, Ben Racine, Rafael Meza, Stephanie Land, Jihyoun Jeon, and Eric J Feuer. 2014. “Patterns of Birth Cohort–Specific Smoking Histories, 1965–2009.” <em>American Journal of Preventive Medicine</em> 46 (2): e31–e37.</p>
+<div id="ref-holford2014patterns" class="csl-entry">
+Holford, Theodore R, David T Levy, Lisa A McKay, Lauren Clarke, Ben Racine, Rafael Meza, Stephanie Land, Jihyoun Jeon, and Eric J Feuer. 2014. <span>“Patterns of Birth Cohort–Specific Smoking Histories, 1965–2009.”</span> <em>American Journal of Preventive Medicine</em> 46 (2): e31–37.
 </div>
 </div>
 </div>
