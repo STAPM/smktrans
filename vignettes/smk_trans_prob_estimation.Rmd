@@ -1,15 +1,23 @@
 ---
-title: "Smoking transition probability estimation"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Smoking transition probability estimation}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
-bibliography: refs/smoking_transitions.bib
-link-citations: yes
-citation_package: natbib
+title: "Smoking state transition probability estimation"
+subtitle: "Vignette version number 1.1.0"
+date: "Last reviewed 20/10/21"
+author: "Duncan Gillespie, Laura Webster & Alan Brennan"
 biblio-style: vancouver
+output: 
+  rmarkdown::html_vignette:
+    number_sections: true
+    toc: true
+link-citations: yes
+bibliography: refs/smoking_transitions.bib
+always_allow_html: yes
 urlcolor: blue
+vignette: >
+  %\VignetteIndexEntry{Smoking state transition probability estimation}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -35,7 +43,7 @@ suppressPackageStartupMessages(library(RColorBrewer))
 ```
 
 
-This vignettes builds on our [methodology report](https://stapm.gitlab.io/projects/smoking-model-development/smoking_transitions_paper/smoking_transition_probabilities_modelling_report.pdf) by explaining how to use the functions within the `smktrans` R package to produce estimates of the probabilities of smoking initiation and quit in England using data from the Health Survey for England.   
+This vignettes builds on our [methodology report](https://stapm.gitlab.io/projects/smoking-model-development/stpm_tech_report/stpm-technical-report.pdf) by explaining how to use the functions within the `smktrans` R package to produce estimates of the probabilities of smoking initiation and quit in England using data from the Health Survey for England.   
 
 ## Smoking initiation  
 For each cohort, we first estimate the age pattern of increase in the proportion of ever-smokers. This is done by the function `smktrans::init_est()` - you can see its help file by typing `?init_est`. The function takes the self-reported age that cigarettes were first smoked and constructs a vector of 0s, 1s and NAs corresponding to each age for each individual (1 = initiated smoking, NA = censored).  

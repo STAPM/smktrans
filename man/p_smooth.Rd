@@ -2,7 +2,7 @@
 % Please edit documentation in R/p_smooth.R
 \name{p_smooth}
 \alias{p_smooth}
-\title{Smooth age and period pattern in probability values \lifecycle{maturing}}
+\title{Smooth age and period pattern in probability values}
 \usage{
 p_smooth(data, value_var, window_size = 3)
 }

@@ -1,5 +1,5 @@
 
-#' Summarise and project trends in ever-smoking  \lifecycle{maturing}
+#' Summarise and project trends in ever-smoking
 #'
 #' Calculates the expected proportion of ever-smokers, and
 #' fits a linear trend over time to the proportion of people who have ever smoked in the

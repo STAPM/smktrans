@@ -9,7 +9,7 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
 
 ## Motivation
@@ -19,14 +19,10 @@ estimate the transition probabilities among current, former and never
 smoking states (i.e. initiation, quitting and relapse) from repeat
 cross-sectional survey data.
 
-`smktrans` was created as part of a programme of work on the health
-economics of tobacco and alcohol at the School of Health and Related
-Research (ScHARR), The University of Sheffield. This programme is based
-around the construction of the Sheffield Tobacco and Alcohol Policy
-Model (STAPM), which aims to use comparable methodologies to evaluate
-the impacts of tobacco and alcohol policies, and investigate the
-consequences of clustering and interactions between tobacco and alcohol
-consumption behaviours.
+`smktrans` was created as part of a programme of work to estimate the
+health economic effects of tobacco trends, policies and interventions at
+the School of Health and Related Research (ScHARR), The University of
+Sheffield.
 
 ## Usage
 
@@ -83,11 +79,3 @@ syntax.
 # Load the package
 library(smktrans)
 ```
-
-## Citation
-
-Please cite the latest version of the package using:  
-“Duncan Gillespie, Laura Webster and Alan Brennan (2020). smktrans:
-Smoking Initiation and Quit Probabilities from Cross-sectional Survey
-Data. R package version x.x.x.
-<https://stapm.gitlab.io/r-packages/smktrans/>.”

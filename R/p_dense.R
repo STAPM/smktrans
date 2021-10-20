@@ -1,5 +1,5 @@
 
-#' Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation \lifecycle{stable}
+#' Convert probabilities of ever-smoking to age-specific probabilities of smoking initiation
 #'
 #' Converts the cumulative density function to the probability density function,
 #' assuming an interval of 1.

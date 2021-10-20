@@ -2,7 +2,7 @@
 % Please edit documentation in R/smoke_surv.R
 \name{smoke_surv}
 \alias{smoke_surv}
-\title{Estimate age-specific probabilities of death by smoking status \lifecycle{stable}}
+\title{Estimate age-specific probabilities of death by smoking status}
 \usage{
 smoke_surv(
   data,
@@ -39,9 +39,9 @@ One data table has the detailed estimates and the
 other has been tidied into the form needed for quit probability estimation.
 }
 \description{
-Estimates the probility that an individual will survive 
-from the beinning to the end of a year interval
-with different proabilities of survival depending on an individuals smoking status
+Estimates the probability that an individual will survive 
+from the beginning to the end of a year interval
+with different probabilities of survival depending on an individuals smoking status
 where the probability of survival for former smokers is adjusted according to our estimates
 of how risk declines by the time since some has quit.
 }

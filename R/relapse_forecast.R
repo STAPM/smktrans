@@ -1,5 +1,5 @@
 
-#' Forecast relapse probabilities \lifecycle{maturing}
+#' Forecast relapse probabilities
 #'
 #' Produces future projections of the annual probabilities of relapse by former smokers,
 #' stratified by age, sex, IMD quintile and the number of years since quitting (up to 10 years).

@@ -2,7 +2,7 @@
 % Please edit documentation in R/quit_est.R
 \name{quit_est}
 \alias{quit_est}
-\title{Estimate smoking quit probabilities \lifecycle{maturing}}
+\title{Estimate smoking quit probabilities}
 \usage{
 quit_est(
   trend_data,

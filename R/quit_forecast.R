@@ -1,5 +1,5 @@
 
-#' Forecast probabilities of smoking initiation, quitting and relapse \lifecycle{maturing}
+#' Forecast probabilities of smoking initiation, quitting and relapse
 #'
 #' Forecasts the period trends in the probabilities of smoking initiation, quitting and relapse
 #' by age, sex and IMD quintile. This function was designed originally to forecast just 

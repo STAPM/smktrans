@@ -2,7 +2,7 @@
 % Please edit documentation in R/relapse_forecast.R
 \name{relapse_forecast}
 \alias{relapse_forecast}
-\title{Forecast relapse probabilities \lifecycle{maturing}}
+\title{Forecast relapse probabilities}
 \usage{
 relapse_forecast(
   relapse_forecast_data,

@@ -1,5 +1,5 @@
 
-#' Estimate smoking quit probabilities \lifecycle{maturing}
+#' Estimate smoking quit probabilities
 #'
 #' Combines the various inputs together to estimate smoking quit
 #' probabilities according to the formula given.

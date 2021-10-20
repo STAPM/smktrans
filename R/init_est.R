@@ -1,5 +1,5 @@
 
-#' Cohort specific smoking initiation \lifecycle{stable}
+#' Cohort specific smoking initiation
 #'
 #' Calculate the age-specific probabilities and cumulative probabilities of 
 #' starting to smoke cigarettes regularly

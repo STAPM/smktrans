@@ -2,7 +2,7 @@
 % Please edit documentation in R/init_adj.R
 \name{init_adj}
 \alias{init_adj}
-\title{Adjust probabilities of ever-smoking \lifecycle{maturing}}
+\title{Adjust probabilities of ever-smoking}
 \usage{
 init_adj(
   init_data,

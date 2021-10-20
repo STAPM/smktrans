@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_surv.R
 \name{prep_surv}
 \alias{prep_surv}
-\title{Estimate socioeconomic differences in cohort survivorship \lifecycle{stable}}
+\title{Estimate socioeconomic differences in cohort survivorship}
 \usage{
 prep_surv(
   mx_data_hmd = smktrans::hmd_data,

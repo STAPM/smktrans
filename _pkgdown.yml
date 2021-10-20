@@ -36,8 +36,8 @@ navbar:
 
 
 articles:
-- title: Code vignettes
   contents:
+  - smktrans
   - smk_trans_prob_estimation
 
 reference:

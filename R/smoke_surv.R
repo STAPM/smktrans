@@ -1,9 +1,9 @@
 
-#' Estimate age-specific probabilities of death by smoking status \lifecycle{stable}
+#' Estimate age-specific probabilities of death by smoking status
 #'
-#' Estimates the probility that an individual will survive 
-#' from the beinning to the end of a year interval
-#' with different proabilities of survival depending on an individuals smoking status
+#' Estimates the probability that an individual will survive 
+#' from the beginning to the end of a year interval
+#' with different probabilities of survival depending on an individuals smoking status
 #' where the probability of survival for former smokers is adjusted according to our estimates
 #' of how risk declines by the time since some has quit.
 #'

@@ -1,6 +1,6 @@
 
 
-#' Adjust probabilities of ever-smoking \lifecycle{maturing}
+#' Adjust probabilities of ever-smoking
 #'
 #' Takes the probabilities of ever-smoking estimated from respondent recall and adjusts them
 #' according to the reported proportions of ever-smokers at a reference age.

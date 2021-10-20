@@ -2,7 +2,7 @@
 % Please edit documentation in R/quit_forecast.R
 \name{quit_forecast}
 \alias{quit_forecast}
-\title{Forecast probabilities of smoking initiation, quitting and relapse \lifecycle{maturing}}
+\title{Forecast probabilities of smoking initiation, quitting and relapse}
 \usage{
 quit_forecast(
   data,

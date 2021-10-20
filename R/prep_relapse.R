@@ -1,5 +1,5 @@
 
-#' Prepare long-term relapse probabilities \lifecycle{stable}
+#' Prepare long-term relapse probabilities
 #'
 #' Combines published estimates of long-term relapse with the Health Survey for England data
 #' to arrive at the expected values for relapse probabilities within defined subgroups.
