@@ -22,16 +22,16 @@
     <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/init_est.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/p_dense.html</loc>
-  </url>
-  <url>
-    <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/p_smooth.html</loc>
-  </url>
-  <url>
     <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/prep_relapse.html</loc>
   </url>
   <url>
     <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/prep_surv.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/p_dense.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/p_smooth.html</loc>
   </url>
   <url>
     <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/quit_est.html</loc>
@@ -52,9 +52,9 @@
     <loc>https://stapm.gitlab.io/r-packages/smktrans/reference/trend_fit.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/smktrans/articles/smk_trans_prob_estimation.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/smktrans/articles/smktrans.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/smktrans/articles/smktrans.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/smktrans/articles/smk_trans_prob_estimation.html</loc>
   </url>
 </urlset>

@@ -1,4 +1,3 @@
-% Encoding: UTF-8
 %% This BibTeX bibliography file was created using BibDesk.
 %% https://bibdesk.sourceforge.io/
 
@@ -166,20 +165,19 @@
 	Volume = {127},
 	Year = {2005}}
 
-@Article{coulson2008dynamics,
-  author        = {Coulson, Tim and Tuljapurkar, Shripad},
-  journal       = {The American Naturalist},
-  title         = {The Dynamics of a Quantitative Trait in an Age‐Structured Population Living in a Variable Environment.},
-  year          = {2008},
-  number        = {5},
-  pages         = {599-612},
-  volume        = {172},
-  abstract      = {Abstract: Time series of rapid phenotypic change have been documented in age‐structured populations living in the wild. Researchers are often interested in identifying the processes responsible for such change. We derive an equation to exactly decompose change in the mean value of a phenotypic trait into contributions from fluctuations in the demographic structure and age‐specific viability selection, fertility selection, phenotypic plasticity, and differences between offspring and parental trait values. We treat fitness as a sum of its components rather than as a scalar and explicitly consider age structure by focusing on short time steps, which are appropriate for describing phenotypic change in species with overlapping generations. We apply the method to examine stasis in birth weight in a well‐characterized population of red deer. Stasis is achieved because positive viability selection for an increase in birth weight is countered by parents producing offspring that are, on average, smaller than they were at birth. This is one of many ways in which equilibria in the mean value of a phenotypic trait can be maintained. The age‐structured Price equation we derive has the potential to provide considerable insight into the processes generating now frequently reported cases of rapid phenotypic change.},
-  bdsk-url-1    = {https://doi.org/10.1086/591693},
-  date-added    = {2020-05-08 19:15:24 +0100},
-  date-modified = {2020-05-08 19:17:25 +0100},
-  doi           = {10.1086/591693},
-}
+@article{coulson2008dynamics,
+	Abstract = { Abstract: Time series of rapid phenotypic change have been documented in age‐structured populations living in the wild. Researchers are often interested in identifying the processes responsible for such change. We derive an equation to exactly decompose change in the mean value of a phenotypic trait into contributions from fluctuations in the demographic structure and age‐specific viability selection, fertility selection, phenotypic plasticity, and differences between offspring and parental trait values. We treat fitness as a sum of its components rather than as a scalar and explicitly consider age structure by focusing on short time steps, which are appropriate for describing phenotypic change in species with overlapping generations. We apply the method to examine stasis in birth weight in a well‐characterized population of red deer. Stasis is achieved because positive viability selection for an increase in birth weight is countered by parents producing offspring that are, on average, smaller than they were at birth. This is one of many ways in which equilibria in the mean value of a phenotypic trait can be maintained. The age‐structured Price equation we derive has the potential to provide considerable insight into the processes generating now frequently reported cases of rapid phenotypic change. },
+	Author = {Coulson, Tim and Tuljapurkar, Shripad},
+	Date-Added = {2020-05-08 19:15:24 +0100},
+	Date-Modified = {2020-05-08 19:17:25 +0100},
+	Doi = {10.1086/591693},
+	Journal = {The American Naturalist},
+	Number = {5},
+	Pages = {599-612},
+	Title = {The Dynamics of a Quantitative Trait in an Age‐Structured Population Living in a Variable Environment.},
+	Volume = {172},
+	Year = {2008},
+	Bdsk-Url-1 = {https://doi.org/10.1086/591693}}
 
 @article{brennan2015model,
 	Abstract = {SUMMARY This methodology paper sets out a mathematical description of the Sheffield Alcohol Policy Model version 2.0, a model to evaluate public health strategies for alcohol harm reduction in the UK. Policies that can be appraised include a minimum price per unit of alcohol, restrictions on price discounting, and broader public health measures. The model estimates the impact on consumers, health services, crime, employers, retailers and government tax revenues. The synthesis of public and commercial data sources to inform the model structure is described. A detailed algebraic description of the model is provided. This involves quantifying baseline levels of alcohol purchasing and consumption by age and gender subgroups, estimating the impact of policies on consumption, for example, using evidence on price elasticities of demand for alcohol, quantification of risk functions relating alcohol consumption to harms including 47 health conditions, crimes, absenteeism and unemployment, and finally monetary valuation of the consequences. The results framework, shown for a minimum price per unit of alcohol, has been used to provide policy appraisals for the UK government policy-makers. In discussion and online appendix, we explore issues around valuation and scope, limitations of evidence/data, how the framework can be adapted to other countries and decisions, and ongoing plans for further development. {\copyright} 2014 The Authors. Health Economics published by John Wiley \& Sons Ltd.},
@@ -602,5 +600,3 @@
 	Title = {Chapter 2: Birth-Cohort-Specific Estimates of Smoking Behaviors for the US Population},
 	Volume = {32},
 	Year = {2012}}
-
-@Comment{jabref-meta: databaseType:bibtex;}
