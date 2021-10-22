@@ -55,7 +55,7 @@ smoke_surv <- function(
     substance = "tob",
     tob_diseases = diseases
   )
-
+ 
   ###################################################
   # Calculate probabilities of death
 
@@ -66,7 +66,8 @@ smoke_surv <- function(
       mx_data = mx_data[year == k_year],
       diseases = diseases,
       weights = T,
-      remove_dead = F
+      remove_dead = F,
+      k_year = k_year
     )
 
     if(k_year == min_year) {
@@ -103,7 +104,7 @@ smoke_surv <- function(
   ###################################################
   # Fit a smooth curve through the probabilities
   domain[ , qx_fits := predict(
-    gam(qx ~ s(age, k = 10)),
+    mgcv::gam(qx ~ s(age, k = 10)),
     newdata = data.frame(age = min_age:max_age)),
     by = c("year", "sex", "imd_quintile", "smk.state")]
 
