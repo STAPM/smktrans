@@ -1,29 +1,27 @@
 
 #' Prepare long-term relapse probabilities
 #'
-#' Combines published estimates of long-term relapse with the Health Survey for England data
+#' Combines published estimates of long-term relapse with the population survey data
 #' to arrive at the expected values for relapse probabilities within defined subgroups.
 #'
 #' This function takes the estimates of relapse to smoking from 
 #' \insertCite{hawkins2010long;textual}{smktrans}
-#' and to process them into probabilities of relapse to smoking by the significant
+#' and processes them into probabilities of relapse to smoking by the significant
 #' variables from the above paper (age, time since quit, degree or not, mental health condition or not,
 #' married or not). Note that physical health / gp visits was also significant but not included here
-#' partly because the Health Survey for England doesn't have the right variables in all years
-#' and partly because it might not be right to include this when we are looking at
-#' health as an outcome in the model.
-#' Once we have mapped relapse prob onto the hse by the above variables,
-#'  we can then calculate the variation in expected probability of relapse by imd quintile.
+#' partly because the surveys do not have the right variables to do so.
+#' Once we have mapped relapse probabilities onto the survey data by the above variables,
+#'  we can then calculate the variation in expected probability of relapse by age, sex, time since quit and IMD quintile.
 #'
-#' @param data Data table containing individual characteristics from the Health Survey for England.
+#' @param data Data table containing individual characteristics from the population survey data.
 #' @param hawkins_relapse Data table containing a tidied version of the estimates of
 #' long-term smoking relapse probability
 #'  from \insertCite{hawkins2010long;textual}{smktrans}.
 #' @param lowest_year integer - lowest year of data available (for England this is 2003
-#' and for Scotland this is 2008). Default is set to 2003, for HSE.
+#' and for Scotland this is 2008). Default is 2003.
 #' @param highest_year integer - highest year of data available.
-#' @param youngest_age integer - youngest age in data (for England we use 11, but for
-#' Scotland this is 16).
+#' @param youngest_age integer - youngest age in data (for England 11, for
+#' Scotland 16).
 #' 
 #' @importFrom data.table copy := rbindlist setDT
 #' @importFrom Rdpack reprompt
