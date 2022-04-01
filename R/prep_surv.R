@@ -9,26 +9,26 @@
 #' from the Human Mortality Database.
 #' @param mx_data_ons Data table containing socioeconomically stratified
 #' mortality rates - that we process ourselves
-#' from mortality microdata supplied by the Office for National Statistics.
+#' from mortality data.
 #' @template age-year
 #' 
 #' @importFrom data.table copy := setDT shift
 #' 
 #' @return Returns a data table containing the socioeconomically stratified cohort survivorship functions.
 #' Note that these data will only be stratified by IMD quintile for
-#' year ages and years covered by our ONS data.
+#' year ages and years needed for the estimation of smoking state transition probabilities.
 #' 
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' test_data <- prep_surv(
-#'   mx_data_hmd = smktrans::hmd_data,
+#'   mx_data_hmd = smktrans::hmd_data_eng,
 #'   mx_data_ons = tob_mort_data
 #' )
 #' }
 prep_surv <- function(
-  mx_data_hmd = smktrans::hmd_data,
+  mx_data_hmd = smktrans::hmd_data_eng,
   mx_data_ons,
   min_age = 11,
   max_age = 89,

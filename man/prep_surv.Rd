@@ -5,7 +5,7 @@
 \title{Estimate socioeconomic differences in cohort survivorship}
 \usage{
 prep_surv(
-  mx_data_hmd = smktrans::hmd_data,
+  mx_data_hmd = smktrans::hmd_data_eng,
   mx_data_ons,
   min_age = 11,
   max_age = 89,
@@ -19,7 +19,7 @@ from the Human Mortality Database.}
 
 \item{mx_data_ons}{Data table containing socioeconomically stratified
 mortality rates - that we process ourselves
-from mortality microdata supplied by the Office for National Statistics.}
+from mortality data.}
 
 \item{min_age}{Integer - the youngest age considered.}
 
@@ -32,7 +32,7 @@ from mortality microdata supplied by the Office for National Statistics.}
 \value{
 Returns a data table containing the socioeconomically stratified cohort survivorship functions.
 Note that these data will only be stratified by IMD quintile for
-year ages and years covered by our ONS data.
+year ages and years needed for the estimation of smoking state transition probabilities.
 }
 \description{
 Takes mortality rates from birth since 1922 and combines
@@ -42,7 +42,7 @@ data from the period under investigation to produce an estimate of the socioecon
 \examples{
 \dontrun{
 test_data <- prep_surv(
-  mx_data_hmd = smktrans::hmd_data,
+  mx_data_hmd = smktrans::hmd_data_eng,
   mx_data_ons = tob_mort_data
 )
 }
